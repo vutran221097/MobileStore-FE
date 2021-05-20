@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-
+import './Navbar.css'
 function NavbarHome() {
     return (
         <div className="navbar-homepage">
