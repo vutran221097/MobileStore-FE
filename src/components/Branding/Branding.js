@@ -1,14 +1,14 @@
 import React from 'react';
-import logo from '../../images/logo-branding.png';
 import './Branding.css'
-import tag from '../../images/tag-branding.png'
-import transport from '../../images/transport-branding.png';
-import support from '../../images/support-branding.png';
-import phone from '../../images/phone-branding.png';
+import logo from '../../images/branding/logo-branding.png';
+import tag from '../../images/branding/tag-branding.png'
+import transport from '../../images/branding/transport-branding.png';
+import support from '../../images/branding/support-branding.png';
+import phone from '../../images/branding/phone-branding.png';
 
 function Branding() {
     return (
-        <div className="branding-homepage">
+        <div className="branding">
             <div className="branding-items d-flex my-2  ">
                 <div className="branding-logo">
                     <img src={logo} alt="branding logo" />

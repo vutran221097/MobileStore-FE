@@ -1,0 +1,51 @@
+.footer {
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.footer-top{
+    background-image:url(../../images/footer-bg.png);
+    height:fit-content;
+    display: flex;
+    padding:0 15rem;
+    justify-content: space-between;
+    color:white;
+}
+
+.footer-bottom{
+    padding: 0 15rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #FF0000;
+    color:white;
+}
+
+.footer-fanpage{
+    height:100%;
+    width:20%;
+}
+
+@media screen and (max-width: 1370px) {
+    .footer-bottom {
+        padding:0 3rem
+    }
+
+    .footer-top{
+        padding: 0 3rem;
+        max-height: fit-content;
+    }
+}
+
+@media screen and (max-width:990px) {
+    .footer-bottom {
+        background-color: #151515;
+    }
+    .footer-top {
+        flex-direction: column;
+        background-image:url(../../images/footer-bg-responsive.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}

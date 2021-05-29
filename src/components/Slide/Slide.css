@@ -1,0 +1,33 @@
+.carousel-item img {
+  max-width: 100%;
+  max-height: 23rem;
+  width: auto;
+  filter: brightness(60%);
+  border: none;
+  z-index: -1;
+}
+
+.carousel-indicators li {
+  display: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+@media screen and (max-width:600px){
+  .carousel-item img {
+    max-height: 18rem;
+  }
+}
+
+@media screen and (max-width:450px){
+  .carousel-item img {
+    max-height: 12rem;
+  }
+}
+
+@media screen and (max-width:350px){
+  .carousel-item img {
+    max-height: 8rem;
+  }
+}

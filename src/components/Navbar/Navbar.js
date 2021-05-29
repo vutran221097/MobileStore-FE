@@ -1,29 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import './Navbar.css'
+import home from '../../images/navbar/home-navbar.png';
+import phone from '../../images/navbar/phone-navbar.png';
+import tablet from '../../images/navbar/tablet-navbar.png'
+import accessory from '../../images/navbar/headphone-navbar.png';
+import installment from '../../images/navbar/installment-pay-navbar.png';
+import news from '../../images/navbar/news-navbar.png';
+import homeResponsive from '../../images/navbar/home-navbar-responsive.png';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faCaretDown
+} from "@fortawesome/free-solid-svg-icons";
+
 function NavbarHome() {
+    const [show, setShow] = useState(false);
+    const showDropdown = (e) => {
+        setShow(!show);
+    }
+    const hideDropdown = e => {
+        setShow(false);
+    }
     return (
         <div className="navbar-homepage">
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand href="#home">Mobile Store</Navbar.Brand>
+            <Navbar className="navbar-items sticky-top" collapseOnSelect expand="lg" variant="dark">
+                <Navbar.Brand className="navbar-homepage-responsive-home" href="#home"><img src={homeResponsive} alt="HomeResponsive" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#features">Features</Nav.Link>
-                        <Nav.Link href="#pricing">Pricing</Nav.Link>
-                        <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                    <Nav>
-                        <Nav.Link href="#deets">More deets</Nav.Link>
-                        <Nav.Link eventKey={2} href="#memes">
-                            Dank memes
+                        <Nav.Link href="#features">
+                            <img src={home} alt="Trang chủ" />
+                            <p>Trang chủ</p>
                         </Nav.Link>
+                        <NavDropdown title={
+                            <div>
+                                <img src={phone} alt="Tablet" />
+                                <p>Phone <FontAwesomeIcon icon={faCaretDown}/></p>
+                            </div>
+                        }
+                            show={show}
+                            onMouseEnter={showDropdown}
+                            onMouseLeave={hideDropdown}
+                            id="collasible-nav-dropdown">
+                            <NavDropdown.Item href="#action/3.1">Iphone</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">Oppo</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">Samsung</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.1">LG</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.1">Xiaomi</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.1">Sony</NavDropdown.Item>
+                        </NavDropdown>
+                        <Nav.Link href="#pricing"> <img src={tablet} alt="Tablet" />
+                            <p>Tablet</p></Nav.Link>
+                        <Nav.Link href="#pricing"> <img src={accessory} alt="Accessories" />
+                            <p>Phụ kiện</p></Nav.Link>
+                        <Nav.Link href="#"><img src={installment} alt="Installment" />
+                            <p>Trả góp</p></Nav.Link>
+                        <Nav.Link href="#news"><img src={news} alt="news" />
+                            <p>Tin tức</p></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

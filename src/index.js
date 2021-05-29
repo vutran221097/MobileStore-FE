@@ -5,8 +5,6 @@ import HomePage from './HomePage';
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <HomePage />
-  </React.StrictMode>,
+    <HomePage />,
   document.getElementById('root')
 );
