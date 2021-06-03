@@ -23,19 +23,19 @@ function NavbarHome() {
     }
     return (
         <div className="navbar-homepage">
-            <Navbar className="navbar-items sticky-top" collapseOnSelect expand="lg" variant="dark">
+            <Navbar className="navbar-items" sticky="top" collapseOnSelect expand="lg" variant="dark">
                 <Navbar.Brand className="navbar-homepage-responsive-home" href="#home"><img src={homeResponsive} alt="HomeResponsive" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#features">
+                        <Nav.Link className='navbar-link' href="#features">
                             <img src={home} alt="Trang chủ" />
                             <p>Trang chủ</p>
                         </Nav.Link>
-                        <NavDropdown title={
-                            <div>
+                        <NavDropdown className="dropdown-navbar" title={
+                            <div className="dropdown-title">
                                 <img src={phone} alt="Tablet" />
-                                <p>Phone <FontAwesomeIcon icon={faCaretDown}/></p>
+                                <p>Phone <FontAwesomeIcon icon={faCaretDown} /></p>
                             </div>
                         }
                             show={show}
@@ -49,13 +49,13 @@ function NavbarHome() {
                             <NavDropdown.Item href="#action/3.1">Xiaomi</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.1">Sony</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link href="#pricing"> <img src={tablet} alt="Tablet" />
+                        <Nav.Link className='navbar-link' href="#pricing"> <img src={tablet} alt="Tablet" />
                             <p>Tablet</p></Nav.Link>
-                        <Nav.Link href="#pricing"> <img src={accessory} alt="Accessories" />
+                        <Nav.Link className='navbar-link' href="#pricing"> <img src={accessory} alt="Accessories" />
                             <p>Phụ kiện</p></Nav.Link>
-                        <Nav.Link href="#"><img src={installment} alt="Installment" />
+                        <Nav.Link className='navbar-link' href="#"><img src={installment} alt="Installment" />
                             <p>Trả góp</p></Nav.Link>
-                        <Nav.Link href="#news"><img src={news} alt="news" />
+                        <Nav.Link className='navbar-link' href="#news"><img src={news} alt="news" />
                             <p>Tin tức</p></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
