@@ -35,7 +35,7 @@ function NavbarHome() {
                         <NavDropdown className="dropdown-navbar" title={
                             <div className="dropdown-title">
                                 <img src={phone} alt="Tablet" />
-                                <p>Phone <FontAwesomeIcon icon={faCaretDown} /></p>
+                                <p className="dropdown-title-phone">Phone <FontAwesomeIcon icon={faCaretDown} /></p>
                             </div>
                         }
                             show={show}

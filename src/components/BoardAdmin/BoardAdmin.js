@@ -26,7 +26,7 @@ const AdminUser = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{content}</h3>
+        <h3>Admin content here</h3>
       </header>
     </div>
   );

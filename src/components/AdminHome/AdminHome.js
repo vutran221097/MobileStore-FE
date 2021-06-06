@@ -22,10 +22,10 @@ const AdminHome = () => {
   }, []);
 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
+    <div className="container" style={{height: "100%"}}>
+      
+        <h1 style={{width:"100%",height:"100%",textAlign:"center"}}>{content}</h1>
+    
     </div>
   );
 };

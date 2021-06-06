@@ -26,7 +26,7 @@ const BoardModerator = () => {
   return (
     <div className="container">
       <header className="jumbotron">
-        <h3>{content}</h3>
+        <h3>Moder content</h3>
       </header>
     </div>
   );
