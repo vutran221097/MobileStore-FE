@@ -35,7 +35,7 @@ function Slide() {
                             <Carousel.Caption>
                                 <h3>{item.title}</h3>
                                 <div className='button-slides'>
-                                    <Button variant="dark" style={{opacity:"0.5"}}>Chi Tiết</Button>
+                                    <Button variant="dark">Chi Tiết</Button>
                                 </div>
                             </Carousel.Caption>
                         </Carousel.Item>

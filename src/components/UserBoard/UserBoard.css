@@ -1,0 +1,39 @@
+.user-board-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.user-board-body {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    align-items: center;
+}
+
+.user-board-header-title {
+    width: 100%;
+    text-align: center;
+    margin: 0.3rem 0;
+}
+
+.user-board-name {
+    width: 15%;
+}
+
+.user-board-email {
+    width: 15%;
+}
+
+.user-board-roles {
+    width: 25%;
+}
+
+.user-board-password {
+    width: 25%;
+}
+
+.user-board-edit .user-board-delete {
+    width: 10%
+}

@@ -1,0 +1,76 @@
+.phone-board-header-title {
+    width: 100%;
+    text-align: center;
+    margin: 0.3rem 0;
+}
+
+.phone-board-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.phone-board-body {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    align-items: center;
+    text-align: center;
+}
+
+.phone-board-add-on-button {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 2rem;
+    margin: 0.3rem 0;
+}
+
+.form-group-phone{
+    padding: 0 2rem;
+}
+
+.phone-board-name {
+    width: 10%
+}
+
+.phone-board-image {
+    width: 10%;
+}
+
+.phone-board-category {
+    width: 5%;
+}
+
+.phone-board-description {
+    width: 10%;
+}
+
+.phone-board-guarantee {
+    width: 5%;
+}
+
+.phone-board-details {
+    width: 10%;
+}
+
+.phone-board-color {
+    width: 10%
+}
+
+.phone-board-available {
+    width: 10%;
+}
+
+.phone-board-price {
+    width: 10%;
+}
+
+.phone-board-edit {
+    width: 5%;
+}
+
+.phone-board-delete {
+    width: 5%;
+}
