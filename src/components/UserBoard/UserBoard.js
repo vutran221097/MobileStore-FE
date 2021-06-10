@@ -11,13 +11,13 @@ import {
 
 const AdminUser = () => {
   const [users, setUsers] = useState([])
-  const [onAdd, setOnAdd] = useState(false)
-  const [onEdit, setOnEdit] = useState(false)
-  const [clickedEdit, setClickedEdit] = useState("")
-  const [userName, setUserName] = useState("")
-  const [userEmail, setUserEmail] = useState("")
-  const [userPassword, setUserPassword] = useState("")
-  const [userRoles, setUserRoles] = useState([])
+  // const [onAdd, setOnAdd] = useState(false)
+  // const [onEdit, setOnEdit] = useState(false)
+  // const [clickedEdit, setClickedEdit] = useState("")
+  // const [userName, setUserName] = useState("")
+  // const [userEmail, setUserEmail] = useState("")
+  // const [userPassword, setUserPassword] = useState("")
+  // const [userRoles, setUserRoles] = useState([])
 
   // const onAddUser = () => {
   //   setOnAdd(!onAdd)

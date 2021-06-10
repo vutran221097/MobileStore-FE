@@ -10,24 +10,45 @@
     align-items: center;
     text-align: center;
     padding: 0 2rem;
+    text-transform: capitalize;
 }
 
 .phone-board-body {
     display: flex;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 0.5rem 2rem;
     align-items: center;
     text-align: center;
+    text-transform: capitalize;
 }
 
-.phone-board-add-on-button {
+.phone-board-on-add-button{
     display: flex;
     justify-content: flex-start;
     padding: 0 2rem;
     margin: 0.3rem 0;
 }
 
-.form-group-phone{
+.phone-board-add-button {
+    padding: 0 2rem;
+    margin: 1rem 0;
+}
+
+.phone-board-add-button button {
+    width: 100%;
+}
+
+
+.phone-board-edit-button {
+    padding: 0 2rem;
+    margin: 1rem 0;
+}
+
+.phone-board-edit-button button {
+    width: 100%;
+}
+
+.form-group-phone {
     padding: 0 2rem;
 }
 
@@ -44,15 +65,11 @@
 }
 
 .phone-board-description {
-    width: 10%;
+    width: 20%;
 }
 
 .phone-board-guarantee {
     width: 5%;
-}
-
-.phone-board-details {
-    width: 10%;
 }
 
 .phone-board-color {
@@ -73,4 +90,12 @@
 
 .phone-board-delete {
     width: 5%;
+}
+
+.checkAvailable {
+    color: green
+}
+
+.checkUnAvailable {
+    color: red
 }

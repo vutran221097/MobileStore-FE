@@ -5,7 +5,7 @@ import home from '../../images/navbar/home-navbar.png';
 import phone from '../../images/navbar/phone-navbar.png';
 import tablet from '../../images/navbar/tablet-navbar.png'
 import accessory from '../../images/navbar/headphone-navbar.png';
-import installment from '../../images/navbar/installment-pay-navbar.png';
+import cart from '../../images/navbar/shopping-cart.png';
 import news from '../../images/navbar/news-navbar.png';
 import homeResponsive from '../../images/navbar/home-navbar-responsive.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -53,10 +53,10 @@ function NavbarHome() {
                             <p>Tablet</p></Nav.Link>
                         <Nav.Link className='navbar-link' href="#pricing"> <img src={accessory} alt="Accessories" />
                             <p>Phụ kiện</p></Nav.Link>
-                        <Nav.Link className='navbar-link' href="#"><img src={installment} alt="Installment" />
-                            <p>Trả góp</p></Nav.Link>
                         <Nav.Link className='navbar-link' href="#news"><img src={news} alt="news" />
                             <p>Tin tức</p></Nav.Link>
+                        <Nav.Link className='navbar-link' href="#"><img src={cart} alt="cart" />
+                            <p>Giỏ hàng</p></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
