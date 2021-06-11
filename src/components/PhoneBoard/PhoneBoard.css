@@ -99,3 +99,9 @@
 .checkUnAvailable {
     color: red
 }
+
+.form-group-phone label {
+        display: block;
+        margin-top: 10px;
+}
+

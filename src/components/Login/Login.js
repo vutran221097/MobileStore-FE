@@ -63,7 +63,7 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/admin" />;
+    return <Redirect to="/admin/usercontent" />;
   }
 
   return (

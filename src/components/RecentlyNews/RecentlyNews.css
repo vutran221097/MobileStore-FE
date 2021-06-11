@@ -1,0 +1,44 @@
+.recently-news{
+    padding: 2rem 15rem;
+}
+
+.recently-news-header-title {
+    background-image: url(../../images/heading.png);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    height: 2.6rem;
+    padding: 0 3.8rem;
+}
+
+.recently-news-content {
+    display: flex;
+    flex-wrap: wrap;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D3D3D3;
+    border-top: none;
+}
+
+.recently-news-header-title p {
+    font-size: 1.5rem;
+    color: black;
+}
+
+.recently-news-content{
+    display: flex;
+}
+
+.recently-news-newest {
+    width:45%
+}
+
+.recently-news-new{
+    width:55%;
+}
+
+@media screen and (max-width: 1370px) {
+    .recently-news {
+        padding-right: 3rem;
+        padding-left: 3rem;
+    }
+}

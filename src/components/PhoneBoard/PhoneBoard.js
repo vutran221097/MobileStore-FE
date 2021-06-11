@@ -47,13 +47,14 @@ const PhoneBoard = () => {
     try {
       const bodyformData = new FormData();
       bodyformData.append("name", phoneName);
+      bodyformData.append("image", phoneImg);
       bodyformData.append("category", phoneCategory);
       bodyformData.append("price", phonePrice);
       bodyformData.append("description", phoneDescription);
       bodyformData.append("color", phoneColor)
       bodyformData.append("guarantee", phoneGuarantee);
       bodyformData.append("available", phoneAvailable);
-      bodyformData.append("image", phoneImg);
+
 
       const res = await axios({
         method: "POST",
@@ -192,6 +193,7 @@ const PhoneBoard = () => {
 
               <label htmlFor="category">Nhóm</label>
               <select id="category" className="form-control" value={phoneCategory} onChange={onChangePhoneCategory}>
+                <option hidden>Vui lòng chọn</option>
                 <option value="iphone">Iphone</option>
                 <option value="samsung">Samsung</option>
                 <option value="oppo">Oppo</option>
@@ -214,6 +216,7 @@ const PhoneBoard = () => {
 
               <label htmlFor="available">Tình trạng</label>
               <select id="available" className="form-control" value={phoneAvailable} onChange={onChangePhoneAvailable}>
+              <option hidden>Vui lòng chọn</option>
                 <option value="available">Còn hàng</option>
                 <option value="unavailable">Hết hàng</option>
               </select>
@@ -273,7 +276,7 @@ const PhoneBoard = () => {
                 </div>
               </div>
               {onEdit && clickedEdit === (item._id) ? (<div>
-                <form onSubmit={() => onSubmitEditPhone(item._id)} encType='multipart/form-data' className="border-bottom">
+                <form onSubmit={() => onSubmitEditPhone(item._id)} encType='multipart/form-data'>
                   <div className="form-group-phone ">
                     <label htmlFor="name">Tên</label>
                     <input value={phoneName} onChange={onChangePhoneName} className="form-control" type="text" placeholder="name" />
@@ -288,6 +291,7 @@ const PhoneBoard = () => {
 
                     <label htmlFor="category">Nhóm</label>
                     <select id="category" className="form-control" value={phoneCategory} onChange={onChangePhoneCategory}>
+                    <option hidden>Vui lòng chọn</option>
                       <option value="iphone">Iphone</option>
                       <option value="samsung">Samsung</option>
                       <option value="oppo">Oppo</option>
@@ -310,6 +314,7 @@ const PhoneBoard = () => {
 
                     <label htmlFor="available">Tình trạng</label>
                     <select id="available" className="form-control" value={phoneAvailable} onChange={onChangePhoneAvailable}>
+                    <option hidden>Vui lòng chọn</option>
                       <option value="available">Còn hàng</option>
                       <option value="unavailable">Hết hàng</option>
                     </select>
@@ -323,7 +328,7 @@ const PhoneBoard = () => {
               </div>) : null}
             </div>
           )
-        })}
+        }).reverse()}
       </InfiniteScroll>
 
 

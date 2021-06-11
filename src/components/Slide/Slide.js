@@ -1,6 +1,6 @@
 import React from 'react';
 import './Slide.css';
-import { Carousel, Button } from 'react-bootstrap'
+import { Carousel } from 'react-bootstrap'
 import slide1 from '../../images/slide/slide1.jpg';
 import slide2 from '../../images/slide/slide2.jpg';
 import slide3 from '../../images/slide/slide3.jpg';
@@ -16,7 +16,7 @@ function Slide() {
             img: slide2
         },
         {
-            title: "Điện thoại Android",
+            title: "Điện thoại Oppo",
             img: slide3
         }
 
@@ -34,9 +34,6 @@ function Slide() {
                             />
                             <Carousel.Caption>
                                 <h3>{item.title}</h3>
-                                <div className='button-slides'>
-                                    <Button variant="dark">Chi Tiết</Button>
-                                </div>
                             </Carousel.Caption>
                         </Carousel.Item>
                     )

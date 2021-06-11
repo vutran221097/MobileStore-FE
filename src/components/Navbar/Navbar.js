@@ -15,12 +15,13 @@ import {
 
 function NavbarHome() {
     const [show, setShow] = useState(false);
-    const showDropdown = (e) => {
+    const showDropdown = () => {
         setShow(!show);
     }
-    const hideDropdown = e => {
+    const hideDropdown = () => {
         setShow(false);
     }
+
     return (
         <div className="navbar-homepage">
             <Navbar className="navbar-items" sticky="top" collapseOnSelect expand="lg" variant="dark">
@@ -28,7 +29,7 @@ function NavbarHome() {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link className='navbar-link' href="#features">
+                        <Nav.Link className='navbar-link' href="/">
                             <img src={home} alt="Trang chủ" />
                             <p>Trang chủ</p>
                         </Nav.Link>
@@ -42,21 +43,21 @@ function NavbarHome() {
                             onMouseEnter={showDropdown}
                             onMouseLeave={hideDropdown}
                             id="collasible-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Iphone</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Oppo</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Samsung</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.1">LG</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.1">Xiaomi</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.1">Sony</NavDropdown.Item>
+                            <NavDropdown.Item href="/brand/iphone">Iphone</NavDropdown.Item>
+                            <NavDropdown.Item href="/brand/oppo">Oppo</NavDropdown.Item>
+                            <NavDropdown.Item href="/brand/samsung">Samsung</NavDropdown.Item>
+                            <NavDropdown.Item href="/brand/lg">LG</NavDropdown.Item>
+                            <NavDropdown.Item href="/brand/xiaomi">Xiaomi</NavDropdown.Item>
+                            <NavDropdown.Item href="/brand/sony">Sony</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link className='navbar-link' href="#pricing"> <img src={tablet} alt="Tablet" />
+                        <Nav.Link className='navbar-link' href="/brand/tablet"> <img src={tablet} alt="Tablet" />
                             <p>Tablet</p></Nav.Link>
-                        <Nav.Link className='navbar-link' href="#pricing"> <img src={accessory} alt="Accessories" />
+                        <Nav.Link className='navbar-link' href="/brand/accessory"> <img src={accessory} alt="Accessories" />
                             <p>Phụ kiện</p></Nav.Link>
-                        <Nav.Link className='navbar-link' href="#news"><img src={news} alt="news" />
+                        <Nav.Link className='navbar-link' href="/news"><img src={news} alt="news" />
                             <p>Tin tức</p></Nav.Link>
-                        <Nav.Link className='navbar-link' href="#"><img src={cart} alt="cart" />
-                            <p>Giỏ hàng</p></Nav.Link>
+                        <Nav.Link className='navbar-link' href="/cart"><img src={cart} alt="cart" />
+                            <p>Giỏ hàng </p></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -64,4 +65,6 @@ function NavbarHome() {
     )
 }
 
-export default NavbarHome;
+
+
+export default NavbarHome

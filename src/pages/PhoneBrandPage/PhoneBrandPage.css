@@ -1,0 +1,125 @@
+.phone-brand-function {
+    width: 25%;
+}
+.phone-brand-items {
+    width: 75%;
+    padding-left:2.5rem
+}
+
+.phone-brand-content {
+    display: flex;
+    flex-wrap: wrap;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D3D3D3;
+    border-top: none;
+    justify-content: center;
+}
+
+.phone-brand-sort {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D3D3D3;
+    border-top: none;
+    justify-content: left;
+}
+
+.phone-brand-header-title {
+    background-image: url(../../images/heading.png);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    height: 2.6rem;
+    padding: 0 3.8rem;
+}
+
+.phone-brand-header-title p {
+    font-size: 1.5rem;
+    color: black;
+    white-space: nowrap;
+}
+
+.phone-brand {
+    padding: 2rem 15rem;
+    display: flex;
+}
+
+.phone-brand-item {
+    padding: 0 1.5rem;
+}
+
+.phone-brand-card {
+    width: 18rem;
+}
+
+.phone-brand-card img {
+    max-width: 100%;
+    height: 12rem;
+}
+
+.phone-brand-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    height: 4rem;
+}
+
+.phone-brand-description {
+    font-size: 1rem;
+    height: 4rem;
+}
+
+.phone-brand-card{
+    padding: 1rem 1.2rem 1.2rem;
+    margin: 0 auto 1.5rem;
+    margin-top: 2rem;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.phone-brand-price{
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.phone-brand-card-footer{
+    display:flex;
+    justify-content: space-between;
+}
+
+.phone-brand-sort-item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.phone-brand-sort-item input {
+    margin-right: 0.5rem;
+}
+
+.phone-brand-sort-item label {
+    font-size: 1rem;
+    margin:0;
+}
+
+
+
+@media screen and (max-width: 1370px) {
+    .phone-brand {
+        padding-right: 3rem;
+        padding-left: 3rem;
+    }
+}
+
+
+@media screen and (max-width: 900px) {
+    .phone-brand-sort-item label {
+        font-size: 0.7rem;
+    }
+}

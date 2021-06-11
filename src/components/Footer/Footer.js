@@ -42,9 +42,15 @@ function Footer() {
                 </div>
                 <div className='footer-fanpage pb-2'>
                     <h5>FANPAGE</h5>
+
                     <div className="fb-page"
                         data-href="https://www.facebook.com/profile.php?id=100068839505063"
-                        style ={{width:"100%"}}
+                        data-width="380"
+                        data-hide-cover="false"
+                        data-show-facepile="false"></div>
+                    {/* <div className="fb-page"
+                        data-href="https://www.facebook.com/profile.php?id=100068839505063"
+                        style={{ width: "100%" }}
                         data-small-header="true"
                         data-adapt-container-width="true"
                         data-hide-cover="true"
@@ -53,7 +59,7 @@ function Footer() {
                             className="fb-xfbml-parse-ignore">
                             <a href="https://www.facebook.com/profile.php?id=100068839505063">MobileStore</a>
                         </blockquote>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div className='footer-bottom'>

@@ -12,10 +12,8 @@ import { history } from "../../helpers/history";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import Profile from "../../components/Profile/Profile";
-import UserContent from "../../components/UserContent/UserContent";
 import PhoneBoard from "../../components/PhoneBoard/PhoneBoard";
 import UserBoard from "../../components/UserBoard/UserBoard";
-
 
 function AdminPage() {
     const [showPhoneBoard, setShowPhoneBoard] = useState(false);
@@ -66,14 +64,13 @@ function AdminPage() {
                                     </Link>
                                 </li>
                             )}
-
-                            {currentUser && (
+                            {/* {currentUser && (
                                 <li className="nav-item">
                                     <Link to={"/admin/usercontent"} className="nav-link">
                                         User
                                     </Link>
                                 </li>
-                            )}
+                            )} */}
                         </div>
 
                         {currentUser ? (
@@ -108,10 +105,9 @@ function AdminPage() {
 
                     <div className="admin-page-body">
                         <Switch>
-                            <Route exact path="/admin"  component={Login} />
+                            <Route exact path="/admin" component={Login} />
                             <Route exact path="/register" component={Register} />
                             <Route exact path="/profile" component={Profile} />
-                            <Route path="/admin/usercontent" component={UserContent} />
                             <Route path="/admin/phoneboard" component={PhoneBoard} />
                             <Route path="/admin/userboard" component={UserBoard} />
                         </Switch>
