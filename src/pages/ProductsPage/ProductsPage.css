@@ -1,12 +1,12 @@
-.phone-brand-function {
+.products-page-function {
     width: 25%;
 }
-.phone-brand-items {
+.products-page-items {
     width: 75%;
     padding-left:2.5rem
 }
 
-.phone-brand-content {
+.products-page-content {
     display: flex;
     flex-wrap: wrap;
     border-style: solid;
@@ -16,7 +16,7 @@
     justify-content: center;
 }
 
-.phone-brand-sort {
+.products-page-sort {
     display: flex;
     flex-direction: column;
     border-style: solid;
@@ -26,7 +26,7 @@
     justify-content: left;
 }
 
-.phone-brand-header-title {
+.products-page-header-title {
     background-image: url(../../images/heading.png);
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -34,42 +34,42 @@
     padding: 0 3.8rem;
 }
 
-.phone-brand-header-title p {
+.products-page-header-title p {
     font-size: 1.5rem;
     color: black;
     white-space: nowrap;
 }
 
-.phone-brand {
+.products-page {
     padding: 2rem 15rem;
     display: flex;
 }
 
-.phone-brand-item {
+.products-page-item {
     padding: 0 1.5rem;
 }
 
-.phone-brand-card {
+.products-page-card {
     width: 18rem;
 }
 
-.phone-brand-card img {
+.products-page-card img {
     max-width: 100%;
     height: 12rem;
 }
 
-.phone-brand-title {
+.products-page-title {
     font-size: 1.2rem;
     font-weight: bold;
     height: 4rem;
 }
 
-.phone-brand-description {
+.products-page-description {
     font-size: 1rem;
     height: 4rem;
 }
 
-.phone-brand-card{
+.products-page-card{
     padding: 1rem 1.2rem 1.2rem;
     margin: 0 auto 1.5rem;
     margin-top: 2rem;
@@ -81,29 +81,29 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.phone-brand-price{
+.products-page-price{
     margin-bottom: 0;
     display: flex;
     align-items: center;
 }
 
-.phone-brand-card-footer{
+.products-page-card-footer{
     display:flex;
     justify-content: space-between;
 }
 
-.phone-brand-sort-item{
+.products-page-sort-item{
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 0.5rem 1rem;
 }
 
-.phone-brand-sort-item input {
+.products-page-sort-item input {
     margin-right: 0.5rem;
 }
 
-.phone-brand-sort-item label {
+.products-page-sort-item label {
     font-size: 1rem;
     margin:0;
 }
@@ -111,7 +111,7 @@
 
 
 @media screen and (max-width: 1370px) {
-    .phone-brand {
+    .products-page {
         padding-right: 3rem;
         padding-left: 3rem;
     }
@@ -119,7 +119,7 @@
 
 
 @media screen and (max-width: 900px) {
-    .phone-brand-sort-item label {
+    .products-page-sort-item label {
         font-size: 0.7rem;
     }
 }

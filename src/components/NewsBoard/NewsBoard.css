@@ -1,0 +1,19 @@
+.news-board{
+    padding: 0 2rem;
+}
+
+.news-board-title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.news-board-body{
+    display: flex;
+    justify-content: space-between;
+}
+
+.news-board-header-title{
+    width: 100%;
+    text-align: center;
+    margin: 0.3rem 0;
+}

@@ -1,0 +1,21 @@
+
+.cart-page-container {
+    display: flex;
+    padding: 0 15rem;
+}
+
+.cart-page-side{
+    width: 25%;
+}
+
+.cart-page-content{
+    width: 75%;
+}
+
+
+@media screen and (max-width: 1370px) {
+    .cart-page-container {
+        padding-right: 3rem;
+        padding-left: 3rem;
+    }
+}

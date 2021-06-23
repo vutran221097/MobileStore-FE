@@ -1,0 +1,7 @@
+.pagination button {
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+}

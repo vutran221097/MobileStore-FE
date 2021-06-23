@@ -1,12 +1,15 @@
 import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import './Login.css'
 
 import { login } from "../../actions/auth";
+
+import ava from '../../images/avatar_2x.png'
 
 const required = (value) => {
   if (!value) {
@@ -29,6 +32,7 @@ const Login = (props) => {
   const { isLoggedIn } = useSelector(state => state.auth);
   const { message } = useSelector(state => state.message);
 
+  const history = useHistory()
   const dispatch = useDispatch();
 
   const onChangeUsername = (e) => {
@@ -51,8 +55,8 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       dispatch(login(username, password))
         .then(() => {
-          props.history.push("/admin");
-          window.location.reload();
+          history.push("/admin");
+          // window.location.reload();
         })
         .catch(() => {
           setLoading(false);
@@ -63,24 +67,24 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/admin/usercontent" />;
+    return <Redirect to="/admin/productboard/page/1" />;
   }
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-
+    <div className="login-admin">
+     
+      <div className="login-admin-image">
+        <div className="d-flex justify-content-center">
+          <img src={ava} alt="profile-img" className="profile-img-card" />
+          
+        </div>
+        <h2 className="text-center mb-2 mt-2" style={{width:"100%"}}>MOBILE STORE ADMIN</h2>
         <Form onSubmit={handleLogin} ref={form}>
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
+          <div className="form-group login-admin-input-form">
+            <label htmlFor="username">UserName</label>
             <Input
               type="text"
-              className="form-control"
+              className="form-control login-admin-input"
               name="username"
               value={username}
               onChange={onChangeUsername}
@@ -88,11 +92,11 @@ const Login = (props) => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group login-admin-input-form">
             <label htmlFor="password">Password</label>
             <Input
               type="password"
-              className="form-control"
+              className="form-control login-admin-input"
               name="password"
               value={password}
               onChange={onChangePassword}
@@ -100,7 +104,7 @@ const Login = (props) => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group login-admin-input-form">
             <button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
@@ -110,7 +114,7 @@ const Login = (props) => {
           </div>
 
           {message && (
-            <div className="form-group">
+            <div className="form-group login-admin-input-form">
               <div className="alert alert-danger" role="alert">
                 {message}
               </div>

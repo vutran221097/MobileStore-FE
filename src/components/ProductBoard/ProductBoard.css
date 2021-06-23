@@ -1,10 +1,10 @@
-.phone-board-header-title {
+.product-board-header-title {
     width: 100%;
     text-align: center;
     margin: 0.3rem 0;
 }
 
-.phone-board-title {
+.product-board-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,7 +13,7 @@
     text-transform: capitalize;
 }
 
-.phone-board-body {
+.product-board-body {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 2rem;
@@ -22,29 +22,29 @@
     text-transform: capitalize;
 }
 
-.phone-board-on-add-button{
+.product-board-on-add-button{
     display: flex;
     justify-content: flex-start;
     padding: 0 2rem;
     margin: 0.3rem 0;
 }
 
-.phone-board-add-button {
+.product-board-add-button {
     padding: 0 2rem;
     margin: 1rem 0;
 }
 
-.phone-board-add-button button {
+.product-board-add-button button {
     width: 100%;
 }
 
 
-.phone-board-edit-button {
+.product-board-edit-button {
     padding: 0 2rem;
     margin: 1rem 0;
 }
 
-.phone-board-edit-button button {
+.product-board-edit-button button {
     width: 100%;
 }
 
@@ -52,43 +52,43 @@
     padding: 0 2rem;
 }
 
-.phone-board-name {
+.product-board-name {
     width: 10%
 }
 
-.phone-board-image {
+.product-board-image {
     width: 10%;
 }
 
-.phone-board-category {
+.product-board-category {
     width: 5%;
 }
 
-.phone-board-description {
+.product-board-description {
     width: 20%;
 }
 
-.phone-board-guarantee {
+.product-board-guarantee {
     width: 5%;
 }
 
-.phone-board-color {
+.product-board-color {
     width: 10%
 }
 
-.phone-board-available {
+.product-board-available {
     width: 10%;
 }
 
-.phone-board-price {
+.product-board-price {
     width: 10%;
 }
 
-.phone-board-edit {
+.product-board-edit {
     width: 5%;
 }
 
-.phone-board-delete {
+.product-board-delete {
     width: 5%;
 }
 
@@ -105,3 +105,13 @@
         margin-top: 10px;
 }
 
+
+#product-board-category{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center
+}
+
+.ql-editor {
+    min-height: 8rem;
+  }

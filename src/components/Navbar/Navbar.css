@@ -1,5 +1,9 @@
-.navbar-homepage-responsive-home {
+.navbar-items .navbar-homepage-responsive-home {
     display: none;
+}
+
+.navbar-homepage{
+    z-index: 1020;
 }
 
 .navbar-items {
@@ -13,12 +17,13 @@
 }
 
 .navbar-link p {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0rem;
     color: white;
 }
 
-.navbar-nav {
+.navbar-homepage .navbar-nav {
     width: 100%;
+    z-index: 999;
 }
 
 .navbar-link {
@@ -66,6 +71,7 @@
 
 a.navbar-link:hover {
     background-color: #2E2E2E;
+    text-decoration: none;
 }
 
 .dropdown-title-phone {
@@ -76,7 +82,7 @@ a.navbar-link:hover {
     border: none;
 }
 
-.navbar-homepage-responsive-home img {
+.navbar-items .navbar-homepage-responsive-home img {
     max-width: 200px;
     height: 3rem;
 }
@@ -85,7 +91,6 @@ a.navbar-link:hover {
     background-color: #1C1C1C;
     width: 100%;
     text-align: left;
-    top:89px;
 }
 
 .dropdown-menu a {
@@ -102,7 +107,6 @@ a.navbar-link:hover {
     background-color: #2E2E2E;
     color: white;
 }
-
 
 
 @media screen and (max-width: 1370px) {
@@ -133,9 +137,10 @@ a.navbar-link:hover {
 
     .navbar-link {
         background-color: #1C1C1C;
+        width: 100%;
     }
 
-    .navbar-homepage-responsive-home {
+    .navbar-items .navbar-homepage-responsive-home {
         display: block;
     }
 

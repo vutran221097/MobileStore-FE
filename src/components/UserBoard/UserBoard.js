@@ -9,7 +9,7 @@ import {
   faUserSlash
 } from "@fortawesome/free-solid-svg-icons";
 
-const AdminUser = () => {
+const UserBoard = () => {
   const [users, setUsers] = useState([])
   // const [onAdd, setOnAdd] = useState(false)
   // const [onEdit, setOnEdit] = useState(false)
@@ -27,7 +27,6 @@ const AdminUser = () => {
   //   setOnEdit(!onEdit)
   //   setClickedEdit(id)
   // }
-
   const getUserData = async () => {
     try {
       const res = await axios.get(`${url}/users`, { headers: authHeader() })
@@ -63,7 +62,7 @@ const AdminUser = () => {
             <div className="user-board-body">
               <p className="user-board-name">{user.username}</p>
               <p className="user-board-email">{user.email}</p>
-              <p className="user-board-password">{user.password.substring(0, 20)}</p>
+              <p className="user-board-password">⚫⚫⚫⚫⚫⚫⚫⚫</p>
               <p className="user-board-roles">{user.roles}</p>
               <p className="user-board-edit"><FontAwesomeIcon icon={faUserEdit} /></p>
               <p className="user-board-delete"><FontAwesomeIcon icon={faUserSlash} /></p>
@@ -75,4 +74,4 @@ const AdminUser = () => {
   );
 };
 
-export default AdminUser;
+export default UserBoard;
