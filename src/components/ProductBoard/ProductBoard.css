@@ -48,7 +48,7 @@
     width: 100%;
 }
 
-.form-group-phone {
+.form-group-product {
     padding: 0 2rem;
 }
 
@@ -100,7 +100,7 @@
     color: red
 }
 
-.form-group-phone label {
+.form-group-product label {
         display: block;
         margin-top: 10px;
 }

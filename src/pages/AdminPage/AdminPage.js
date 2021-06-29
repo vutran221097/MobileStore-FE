@@ -11,6 +11,7 @@ import UserBoard from "../../components/UserBoard/UserBoard";
 import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 import AdminNavbar from '../../components/AdminNavbar/AdminNavbar';
 import NewsBoard from '../../components/NewsBoard/NewsBoard';
+import Page404 from '../../components/Page404/Page404.js'
 
 function AdminPage(props) {
     let match = props.match.match;
@@ -22,10 +23,12 @@ function AdminPage(props) {
                     <Switch>
                         <Route exact path={`${match.url}/`} component={Login} />
                         <PrivateRoute exact path={`${match.url}/newsboard`} component={NewsBoard} />
+                        <PrivateRoute exact path={`${match.url}/newsboard/page/:pageNumber`} component={NewsBoard} />
                         <PrivateRoute exact path={`${match.url}/profile`} component={Profile} />
                         <PrivateRoute exact path={`${match.url}/productboard`} component={ProductBoard} />
                         <PrivateRoute exact path={`${match.url}/productboard/page/:pageNumber`} component={ProductBoard} />
                         <PrivateRoute exact path={`${match.url}/userboard`} component={UserBoard} />
+                        <PrivateRoute component={Page404} />
                     </Switch>
                 </div>
         </div>

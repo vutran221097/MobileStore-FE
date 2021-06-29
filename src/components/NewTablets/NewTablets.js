@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './NewTablets.css'
 import { Card, Button } from 'react-bootstrap'
 import axios from 'axios';
-import StringToHtml from '../StringToHtml/StringToHtml';
+import getBodyContent from '../DemoContent/DemoBodyContent';
 import url from '../../setup'
 import { Link } from 'react-router-dom'
 
@@ -38,11 +38,11 @@ function NewTablets() {
                                 <Card.Body>
                                     <p className="new-tablets-title">{item.name}</p>
                                     <p className="new-tablets-description">
-                                        {StringToHtml(item.description).slice(0, 50) + "..."}
+                                        {getBodyContent(item.description).slice(0, 50) + "..."}
                                     </p>
                                     <div className="new-tablets-card-footer">
                                         <p className="new-tablets-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
-                                        <Link to={`/sanpham/${item._id}`}>
+                                        <Link to={`/product/${item._id}`}>
                                             <Button variant="danger">
                                                 Mua ngay
                                             </Button>

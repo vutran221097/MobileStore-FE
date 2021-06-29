@@ -6,7 +6,7 @@ const Pagination = ({ page, pages, changePage }) => {
     let middlePagination;
     if (pages <= 5) {
         middlePagination = [...Array(pages)].map((_, index) => (
-            <Button key={index + 1}
+            <Button className="ml-1" key={index + 1}
                 onClick={() => changePage(index + 1)}
                 disabled={page === index + 1}>
                 {index + 1}
@@ -18,7 +18,7 @@ const Pagination = ({ page, pages, changePage }) => {
         middlePagination = (
             <>
                 {[...Array(5)].map((_, index) => (
-                    <Button
+                    <Button className="ml-1"
                         key={startValue + index + 1}
                         disabled={pages === startValue + index + 1}
                         onClick={() => changePage(startValue + index + 1)}
@@ -27,8 +27,8 @@ const Pagination = ({ page, pages, changePage }) => {
                     </Button>
                 ))
                 }
-                <Button>...</Button>
-                <Button onClick={() => changePage(pages)}>{pages}</Button>
+                <Button className="ml-1">...</Button>
+                <Button className="ml-1" onClick={() => changePage(pages)}>{pages}</Button>
             </>
         )
 
@@ -36,9 +36,9 @@ const Pagination = ({ page, pages, changePage }) => {
             if (pages - page >= 5) {
                 middlePagination = (
                     <>
-                        <Button onClick={() => changePage(1)}>1</Button>
-                        <Button>...</Button>
-                        <Button onClick={() => changePage(startValue)}>{startValue}</Button>
+                        <Button className="ml-1" onClick={() => changePage(1)}>1</Button>
+                        <Button className="ml-1">...</Button>
+                        <Button className="ml-1" onClick={() => changePage(startValue)}>{startValue}</Button>
                         {[...Array(5)].map((_, index) => (
                             <Button
                                 key={startValue + index + 1}
@@ -49,18 +49,18 @@ const Pagination = ({ page, pages, changePage }) => {
                             </Button>
                         ))
                         }
-                        <Button>...</Button>
-                        <Button onClick={() => changePage(pages)}>{pages}</Button>
+                        <Button className="ml-1">...</Button>
+                        <Button className="ml-1" onClick={() => changePage(pages)}>{pages}</Button>
                     </>
                 )
             } else {
                 middlePagination = (
                     <>
-                        <Button onClick={() => changePage(1)}>1</Button>
-                        <Button>...</Button>
-                        <Button onClick={() => changePage(startValue)}>{startValue}</Button>
+                        <Button className="ml-1" onClick={() => changePage(1)}>1</Button>
+                        <Button className="ml-1">...</Button>
+                        <Button className="ml-1" onClick={() => changePage(startValue)}>{startValue}</Button>
                         {[...Array(5)].map((_, index) => (
-                            <Button
+                            <Button className="ml-1"
                                 key={startValue + index + 1}
                                 style={pages < startValue + index + 1 ? {display:"none"} : null }
                                 disabled={pages === startValue + index + 1}
@@ -85,12 +85,13 @@ const Pagination = ({ page, pages, changePage }) => {
                 &#171;
             </Button>
             {middlePagination}
-            <Button className="pagination_next"
+            <Button className="pagination_next ml-1"
                 onClick={() => changePage(page => page + 1)}
                 disabled={page === pages}>&#187;
             </Button>
         </div>
     )
+    
 }
 
 export default Pagination

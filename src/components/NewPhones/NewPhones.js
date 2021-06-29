@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './NewPhones.css'
 import { Card, Button } from 'react-bootstrap'
 import axios from 'axios';
-import StringToHtml from '../StringToHtml/StringToHtml';
+import getBodyContent from '../DemoContent/DemoBodyContent';
 import url from '../../setup'
 import { Link } from 'react-router-dom'
 
@@ -41,7 +41,7 @@ function NewPhones() {
                                 <Card.Body>
                                     <p className="new-phones-title">{item.name}</p>
                                     <p className="new-phones-description">
-                                        {StringToHtml(item.description).slice(0,50)+"..."}
+                                        {getBodyContent(item.description).slice(0,50)+"..."}
                                     </p>
                                     <div className="new-phones-card-footer">
                                         <p className="new-phones-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>

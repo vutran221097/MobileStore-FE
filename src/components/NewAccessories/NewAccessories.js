@@ -4,7 +4,7 @@ import { Card, Button } from 'react-bootstrap'
 import axios from 'axios';
 import url from '../../setup'
 import { Link } from 'react-router-dom'
-import StringToHtml from "../StringToHtml/StringToHtml"
+import StringToHtml from "../DemoContent/DemoBodyContent"
 
 
 function NewAccessories() {
@@ -42,7 +42,7 @@ function NewAccessories() {
                                     </p>
                                     <div className="new-accessories-card-footer">
                                         <p className="new-accessories-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
-                                        <Link to={`/sanpham/${item._id}`}>
+                                        <Link to={`/product/${item._id}`}>
                                             <Button variant="danger">
                                                 Mua ngay
                                             </Button>

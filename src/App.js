@@ -12,6 +12,8 @@ import AdminPage from './pages/AdminPage/AdminPage.js';
 import ProductsPage from './pages/ProductsPage/ProductsPage.js';
 import ProductDetailsPage from './pages/ProductDetailsPage/ProductDetailsPage.js';
 import CartPage from './pages/CartPage/CartPage.js';
+import NewsPage from './pages/NewsPage/NewsPage'
+import OrderHistory from './pages/OrderHistoryPage/OrderHistoryPage'
 import Page404 from './components/Page404/Page404.js'
 import { history } from "./helpers/history";
 
@@ -23,7 +25,9 @@ function App() {
                     <Route exact path="/" component={Home} />
                     <Route path="/admin" render={(match) => <AdminPage match={match} />} />
                     <Route exact path="/category/:category" render={(props) => <ProductsPage {...props} />} />
+                    <Route exact path="/news" component={NewsPage} />
                     <Route exact path="/product/:id" render={(props) => <ProductDetailsPage {...props} />} />
+                    <Route exact path="/history" component={OrderHistory} />
                     <Route exact path="/cart" component={CartPage} />
                     <Route component={Page404} />
                 </Switch>

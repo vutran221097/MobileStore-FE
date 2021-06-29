@@ -13,7 +13,7 @@ import {
 import ReactQuill from "react-quill";
 import EditorToolbar, { modules, formats } from "../Editor/EditorToolbar";
 import "react-quill/dist/quill.snow.css";
-import StringToHtml from '../StringToHtml/StringToHtml'
+import getBodyContent from '../DemoContent/DemoBodyContent'
 import Pagination from "../Pagination/Pagination";
 
 const ProductBoard = ({ match }) => {
@@ -42,7 +42,6 @@ const ProductBoard = ({ match }) => {
         setLoading(true)
         const res = await axios.get(`${url}/products?page=${page}`);
         if (res.status === 200) {
-          console.log(res.data.products, res.data.pages)
           setProducts(res.data.products);
           setPages(res.data.pages)
           setLoading(false)
@@ -56,7 +55,7 @@ const ProductBoard = ({ match }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
 
-  const onSubmitPhone = async (e) => {
+  const onSubmitProduct = async (e) => {
     e.preventDefault();
     try {
       const bodyformData = new FormData();
@@ -93,7 +92,7 @@ const ProductBoard = ({ match }) => {
     }
   }
 
-  const onSubmitEditPhone = async (id, updatePhone) => {
+  const onSubmitEditProduct = async (id, updateProduct) => {
     try {
       const bodyformData = new FormData();
       bodyformData.append("name", productName);
@@ -113,7 +112,7 @@ const ProductBoard = ({ match }) => {
       })
 
       if (res.status === 200) {
-        setProducts(products.map(i => (i._id === id ? updatePhone : i)));
+        setProducts(products.map(i => (i._id === id ? updateProduct : i)));
       }
     }
     catch (e) {
@@ -147,7 +146,6 @@ const ProductBoard = ({ match }) => {
   const onEditProduct = (id) => {
     setProductColor([])
     setClickedEdit(id)
-    setProductDescription({ body: null })
     // eslint-disable-next-line
     {
       products.map(item => {
@@ -155,6 +153,7 @@ const ProductBoard = ({ match }) => {
           setProductName(item.name)
           setProductGuarantee(item.guarantee)
           setProductPrice(item.price)
+          setProductDescription(JSON.parse(item.description))
         }
         return null;
       })
@@ -162,17 +161,6 @@ const ProductBoard = ({ match }) => {
     
     setOnEdit(!onEdit)
   }
-
-  // const handleUpdateProduct = (products) => {
-  //   setProducts(products.map(item => {
-  //     if (clickedEdit === item._id) return {
-  //       ...item,
-  //       ...products
-  //     }
-  //     else return item;
-  //   }));
-  //   setClickedEdit(null);
-  // }
 
   const onChangeProductName = (e) => {
     setProductName(e.target.value)
@@ -233,8 +221,8 @@ const ProductBoard = ({ match }) => {
       </div>
       <div className="product-board-add-on-form">
         {onAdd ? (<div>
-          <form onSubmit={onSubmitPhone} encType='multipart/form-data' className="border-bottom">
-            <div className="form-group-phone">
+          <form onSubmit={onSubmitProduct} encType='multipart/form-data' className="border-bottom">
+            <div className="form-group-product">
               <label htmlFor="name">Tên</label>
               <input value={productName} onChange={onChangeProductName} className="form-control" type="text" placeholder="Name" required />
 
@@ -321,7 +309,7 @@ const ProductBoard = ({ match }) => {
               <p className="product-board-name">{item.name}</p>
               <div className="product-board-image"><img src={`${url}/uploads/${item.image}`} alt={item._id} style={{ width: "4rem", height: "4.5rem" }} /></div>
               <p className="product-board-category">{item.category}</p>
-              <p className="product-board-description">{StringToHtml(item.description).slice(0, 30) + "..."}</p>
+              <p className="product-board-description">{getBodyContent(item.description).slice(0, 30) + "..."}</p>
               <p className="product-board-guarantee">{item.guarantee}<sup>th</sup></p>
               <p className="product-board-color">{item.color.toString()}</p>
               <p className="product-board-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
@@ -335,8 +323,8 @@ const ProductBoard = ({ match }) => {
             </div>
             {onEdit && clickedEdit === (item._id) ? (
               <div>
-                <form onSubmit={() => onSubmitEditPhone(item._id)} encType='multipart/form-data'>
-                  <div className="form-group-phone ">
+                <form onSubmit={() => onSubmitEditProduct(item._id)} encType='multipart/form-data'>
+                  <div className="form-group-product ">
                     <label htmlFor="name">Tên</label>
                     <input value={productName} onChange={onChangeProductName} className="form-control" type="text" placeholder="Name" required />
 
@@ -374,7 +362,7 @@ const ProductBoard = ({ match }) => {
                     </div>
 
                     <label htmlFor="guarantee">Số tháng bảo hành</label>
-                    <input value={productGuarantee} onChange={onChangeProductGuarantee} className="form-control" type="number" placeholder="Guarantee" required />
+                    <input maxlength="2" value={productGuarantee} onChange={onChangeProductGuarantee} className="form-control" type="number" placeholder="Guarantee" required />
 
                     <label htmlFor="color">Màu</label>
                     <div id="product-board-color-add">

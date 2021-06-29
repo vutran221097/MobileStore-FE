@@ -5,13 +5,17 @@
 }
 
 .cart-page-side{
-    width: 25%;
+    width: 20%;
 }
 
 .cart-page-content{
-    width: 75%;
+    width: 80%;
 }
 
+.payment-button {
+    display: flex;
+    justify-content: flex-end;
+}
 
 @media screen and (max-width: 1370px) {
     .cart-page-container {

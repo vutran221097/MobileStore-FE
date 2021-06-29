@@ -27,6 +27,7 @@ export default function productCart(state = initProduct, action) {
                     image: action.payload.image,
                     price: action.payload.price,
                     color: action.payload.color,
+                    guarantee : action.payload.guarantee
                 };
                 state.Carts.push(cart);
             } else {
@@ -45,6 +46,7 @@ export default function productCart(state = initProduct, action) {
                         image: action.payload.image,
                         price: action.payload.price,
                         color: action.payload.color,
+                        guarantee : action.payload.guarantee
                     };
                     state.Carts.push(_cart);
                 }

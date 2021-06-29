@@ -67,6 +67,9 @@
     margin-bottom: 0;
     display: flex;
     align-items: center;
+    color:red;
+    font-weight: bold;
+    font-style:italic;
 }
 
 .new-phones-card-footer{

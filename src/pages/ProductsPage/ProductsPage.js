@@ -12,7 +12,7 @@ import Branding from '../../components/Branding/Branding.js';
 import Navbar from '../../components/Navbar/Navbar.js'
 import Slide from '../../components/Slide/Slide.js';
 import Footer from '../../components/Footer/Footer.js';
-import StringToHtml from '../../components/StringToHtml/StringToHtml';
+import getBodyContent from '../../components/DemoContent/DemoBodyContent';
 import DocumentMeta from 'react-document-meta';
 
 function ProductsPage(props) {
@@ -23,7 +23,7 @@ function ProductsPage(props) {
             try {
                 const res = await axios.get(`${url}/products/category/${productsCategory}`);
                 if (res.status === 200) {
-                    setProducts(res.data.products);
+                    setProducts(res.data);
                 }
             } catch (error) {
                 console.error(error);
@@ -66,13 +66,45 @@ function ProductsPage(props) {
 
 
     return (
-        <div className="products-page-page">
+        <div className="products">
             <DocumentMeta {...meta} />
             <Header />
             <Branding />
             <Navbar />
             <Slide />
             <div className="products-page">
+                
+                <div className="products-page-items">
+                    <div className="products-page-header-title"><p style={{ textTransform: "capitalize" }}>{productsCategory === "accessories" ? "Phụ kiện " 
+                                                                                                            : productsCategory === "tablet" ? "Máy tính bảng " 
+                                                                                                            : productsCategory === "apple" ? "Điện thoại iphone"
+                                                                                                            : "Điện thoại " + productsCategory}</p></div>
+                    <div className="products-page-content">
+                        {products.map((item) => {
+                            return (
+                                <div className="products-page-item" key={item._id}>
+                                    <Card className="products-page-card">
+                                        <Card.Img className="products-page-image" variant="top" src={`${url}/uploads/${item.image}`} />
+                                        <Card.Body>
+                                            <p className="products-page-title">{item.name}</p>
+                                            <p className="products-page-description">
+                                                {getBodyContent(item.description).slice(0,50)+"..."}
+                                            </p>
+                                            <div className="products-page-card-footer">
+                                                <p className="products-page-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
+                                                <Link to={`/product/${item._id}`}>
+                                                    <Button variant="danger">
+                                                        Mua ngay
+                                                    </Button>
+                                                </Link>
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
                 <div className="products-page-function">
                     <div className="products-page-header-title"><p>Sản phẩm</p></div>
                     <div className="products-page-sort">
@@ -96,37 +128,6 @@ function ProductsPage(props) {
                             <input type="radio" id="sortByDateOld" name="sort" value="sortByDateOld" onClick={sortByOld} />
                             <label htmlFor="sortByDateOld">Sản phẩm cũ</label>
                         </div>
-                    </div>
-                </div>
-                <div className="products-page-items">
-                    <div className="products-page-header-title"><p style={{ textTransform: "capitalize" }}>{productsCategory === "accessories" ? "Phụ kiện " 
-                                                                                                            : productsCategory === "tablet" ? "Máy tính bảng " 
-                                                                                                            : productsCategory === "apple" ? "Điện thoại iphone"
-                                                                                                            : "Điện thoại " + productsCategory}</p></div>
-                    <div className="products-page-content">
-                        {products.map((item) => {
-                            return (
-                                <div className="products-page-item" key={item._id}>
-                                    <Card className="products-page-card">
-                                        <Card.Img className="products-page-image" variant="top" src={`${url}/uploads/${item.image}`} />
-                                        <Card.Body>
-                                            <p className="products-page-title">{item.name}</p>
-                                            <p className="products-page-description">
-                                                {StringToHtml(item.description).slice(0,50)+"..."}
-                                            </p>
-                                            <div className="products-page-card-footer">
-                                                <p className="products-page-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
-                                                <Link to={`/product/${item._id}`}>
-                                                    <Button variant="danger">
-                                                        Mua ngay
-                                                    </Button>
-                                                </Link>
-                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            )
-                        })}
                     </div>
                 </div>
             </div>

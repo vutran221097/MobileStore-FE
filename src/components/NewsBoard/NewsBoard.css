@@ -17,3 +17,54 @@
     text-align: center;
     margin: 0.3rem 0;
 }
+
+
+.news-board-add-button{
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 2rem;
+    margin: 0.3rem 0;
+}
+
+.news-board-add-button {
+    padding: 0 2rem;
+    margin: 1rem 0;
+}
+
+.news-board-add-button button {
+    width: 100%;
+}
+
+
+.news-board-edit-button {
+    padding: 0 2rem;
+    margin: 1rem 0;
+}
+
+.news-board-edit-button button {
+    width: 100%;
+}
+
+.form-group-news {
+    padding: 0 2rem;
+}
+
+.news-board-content-title{
+    width: 30%;
+}
+
+.news-board-content-body{
+    width: 45%;
+}
+
+.news-board-content-date{
+    width: 15%;
+}
+
+.news-board-edit {
+    width: 5%;
+}
+
+.news-board-delete {
+    width: 5%;
+}

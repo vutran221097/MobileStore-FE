@@ -32,7 +32,6 @@ const UserBoard = () => {
       const res = await axios.get(`${url}/users`, { headers: authHeader() })
       if (res.status === 200) {
         setUsers(res.data)
-        console.log(res.data)
       }
     }
     catch (err) {
@@ -63,7 +62,7 @@ const UserBoard = () => {
               <p className="user-board-name">{user.username}</p>
               <p className="user-board-email">{user.email}</p>
               <p className="user-board-password">⚫⚫⚫⚫⚫⚫⚫⚫</p>
-              <p className="user-board-roles">{user.roles}</p>
+              <p className="user-board-roles">{"ROLE_"+user.myrole}</p>
               <p className="user-board-edit"><FontAwesomeIcon icon={faUserEdit} /></p>
               <p className="user-board-delete"><FontAwesomeIcon icon={faUserSlash} /></p>
             </div>

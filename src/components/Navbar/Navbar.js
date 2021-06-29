@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import cartNum from '../../images/navbar/circle.png'
 
 
 class NavbarHome extends Component {
@@ -22,7 +23,7 @@ class NavbarHome extends Component {
         return (
             <div className="navbar-homepage">
                 <Navbar className="navbar-items" sticky="top" collapseOnSelect expand="lg" variant="dark">
-                    <Navbar.Brand className="navbar-homepage-responsive-home" href="#home"><img src={homeResponsive} alt="HomeResponsive" /></Navbar.Brand>
+                    <Navbar.Brand className="navbar-homepage-responsive-home"><Link to ="/"><img src={homeResponsive} alt="HomeResponsive" /></Link></Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
@@ -52,8 +53,13 @@ class NavbarHome extends Component {
                                 <p>Tin tức</p></Link>
                             <Link className='navbar-link' to="/history"><img src={history} alt="news" />
                                 <p>Lịch sử đơn hàng</p></Link>
-                            <Link className='navbar-link' to="/cart"><img src={cart} alt="cart" />
-                                <p>Giỏ hàng: {this.props.numberCart} </p></Link>
+                            <Link className='navbar-link cart-number' to="/cart">
+                                <img className="cart-icon" src={cart} alt="cart" />
+                                {this.props.numberCart > 0 ? (<>
+                                    <img className="number-of-cart" src={cartNum} alt="cartNumber" />
+                                    <span className="number-of-cart">{this.props.numberCart} </span>
+                                </>) : null}
+                                <p>Giỏ hàng</p></Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>

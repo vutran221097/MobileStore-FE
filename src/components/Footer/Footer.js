@@ -48,18 +48,6 @@ function Footer() {
                         data-width="380"
                         data-hide-cover="false"
                         data-show-facepile="false"></div>
-                    {/* <div className="fb-page"
-                        data-href="https://www.facebook.com/profile.php?id=100068839505063"
-                        style={{ width: "100%" }}
-                        data-small-header="true"
-                        data-adapt-container-width="true"
-                        data-hide-cover="true"
-                        data-show-facepile="false">
-                        <blockquote cite="https://www.facebook.com/profile.php?id=100068839505063"
-                            className="fb-xfbml-parse-ignore">
-                            <a href="https://www.facebook.com/profile.php?id=100068839505063">MobileStore</a>
-                        </blockquote>
-                    </div> */}
                 </div>
             </div>
             <div className='footer-bottom'>
