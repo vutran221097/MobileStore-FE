@@ -143,7 +143,6 @@ const UserBoard = () => {
       if (id === item._id) {
         setUserName(item.username)
         setUserEmail(item.email)
-        setUserPassword(item.password)
       }
       return null;
     })
@@ -188,7 +187,7 @@ const UserBoard = () => {
                   <input value={userEmail} onChange={onChangeUserEmail} className="form-control" type="email" placeholder="Email" required />
 
                   <label htmlFor="password">PassWord</label>
-                  <input value={userPassword} onChange={onChangeUserPassword} className="form-control" type="password" placeholder="Title" required />
+                  <input value={userPassword} onChange={onChangeUserPassword} className="form-control" type="password" placeholder="Password" required />
 
                   <label htmlFor="roles">Vai trò</label>
                   <div id="roles" value={userRoles} onChange={onChangeUserRoles}>
@@ -243,7 +242,7 @@ const UserBoard = () => {
                         <input value={userEmail} onChange={onChangeUserEmail} className="form-control" type="email" placeholder="Email" required />
 
                         <label htmlFor="password">PassWord</label>
-                        <input value={userPassword} onChange={onChangeUserPassword} className="form-control" type="password" placeholder="Title" required />
+                        <input value={userPassword} onChange={onChangeUserPassword} className="form-control" type="password" placeholder="Password" required />
 
                         <label htmlFor="roles">Vai trò</label>
                         <div id="roles" value={userRoles} onChange={onChangeUserRoles}>
