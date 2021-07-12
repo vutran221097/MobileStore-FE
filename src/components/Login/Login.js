@@ -56,7 +56,6 @@ const Login = (props) => {
       dispatch(login(username, password))
         .then(() => {
           history.push("/admin");
-          // window.location.reload();
         })
         .catch(() => {
           setLoading(false);
@@ -67,7 +66,7 @@ const Login = (props) => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/admin/productboard/page/1" />;
+    return <Redirect to="/admin/dashboard" />;
   }
 
   return (

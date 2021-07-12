@@ -1,0 +1,53 @@
+.searchBar {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem 15rem;
+}
+
+.searchTerm {
+    width: 70%;
+    height: 2.5rem;
+    padding-left: 2rem;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    border: none;
+    box-shadow: 3px 3px 6px 0 rgba(0, 0, 0, 0.16);
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.searchButton {
+    width: 30%;
+    height: 2.5rem;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 4px 3px 6px 0 rgba(0, 0, 0, 0.16);
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 2rem;
+}
+
+.searchButton:hover {
+    color: #02b3a7;
+}
+
+@media screen and (max-width: 1370px) {
+    .searchBar {
+        padding-right: 3rem;
+        padding-left: 3rem;
+    }
+}

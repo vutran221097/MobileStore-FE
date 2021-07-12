@@ -1,38 +1,43 @@
 .footer {
-    display:flex;
+    display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.footer-top{
-    background-image:url(../../images/footer-bg-responsive.jpg);
-    height:fit-content;
+.footer-top {
+    background-image: url(../../images/footer-bg-responsive.jpg);
+    height: fit-content;
     display: flex;
-    padding:0 15rem;
+    padding: 0 15rem;
     justify-content: space-between;
-    color:white;
+    color: white;
 }
 
-.footer-bottom{
+.footer-bottom {
     padding: 0 15rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: #151515;
-    color:white;
+    color: white;
 }
 
-.footer-fanpage{
-    height:100%;
-    width:20%;
+.footer-map img {
+    width: 90%;
+    height: 90%;
+    transition: ease-in-out 0.5s;
+}
+
+.footer-map img:hover {
+    transform: scale(1.1);
 }
 
 @media screen and (max-width: 1370px) {
     .footer-bottom {
-        padding:0 3rem
+        padding: 0 3rem
     }
 
-    .footer-top{
+    .footer-top {
         padding: 0 3rem;
         max-height: fit-content;
     }
@@ -42,9 +47,10 @@
     .footer-bottom {
         background-color: #151515;
     }
+
     .footer-top {
         flex-direction: column;
-        background-image:url(../../images/footer-bg-responsive.jpg);
+        background-image: url(../../images/footer-bg-responsive.jpg);
         background-repeat: no-repeat;
         background-size: cover;
     }

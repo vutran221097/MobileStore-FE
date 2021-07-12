@@ -41,13 +41,13 @@
 }
 
 .new-tablets-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     height: 4rem;
 }
 
 .new-tablets-description {
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: 4rem;
 }
 
@@ -77,6 +77,9 @@
     justify-content: space-between;
 }
 
+.new-tablets-title:hover{
+    color:#6495ED
+}
 
 @media screen and (max-width: 1370px) {
     .new-tablets {

@@ -14,54 +14,66 @@ import Slide from '../../components/Slide/Slide.js';
 import Footer from '../../components/Footer/Footer.js';
 import getBodyContent from '../../components/DemoContent/DemoBodyContent';
 import DocumentMeta from 'react-document-meta';
+import Pagination from '../../components/Pagination/Pagination';
 
 function ProductsPage(props) {
     const [products, setProducts] = useState([])
     const productsCategory = props.match.params.category
+
+    const [page, setPage] = useState(1)
+    const [pages, setPages] = useState(1)
+    const [sortByPrice, setSortByPrice] = useState("")
+    const [sortByDate, setSortByDate] = useState(-1)
+
     useEffect(() => {
         async function getProducts() {
             try {
-                const res = await axios.get(`${url}/products/category/${productsCategory}`);
+                const res = await axios.get(`${url}/products?category=${productsCategory}&page=${page}&sortByPrice=${sortByPrice}&sortByDate=${sortByDate}`);
                 if (res.status === 200) {
-                    setProducts(res.data);
+                    setProducts(res.data.products);
+                    setPages(res.data.pages)
                 }
             } catch (error) {
                 console.error(error);
             }
         }
         getProducts();
-    }, [productsCategory])
+    }, [productsCategory, sortByPrice, sortByDate, page])
 
     const meta = {
-        title: productsCategory === "accessories" ? "Phụ kiện" 
-        : productsCategory === "tablet" ? "Máy tính bảng" 
-        : productsCategory === "apple" ? "Điện thoại iphone"
-        : "Điện thoại " + productsCategory,
+        title: productsCategory === "accessories" ? "Phụ kiện"
+            : productsCategory === "tablet" ? "Máy tính bảng"
+                : productsCategory === "apple" ? "Điện thoại iphone"
+                    : "Điện thoại " + productsCategory,
     }
 
 
     const sortByPriceIncrease = () => {
-        const sortByPriceIncrease = [...products]
-        sortByPriceIncrease.sort((a, b) => { return a.price - b.price })
-        setProducts(sortByPriceIncrease)
+        const sortByPrice = [...products]
+        setSortByDate("")
+        setSortByPrice(1)
+        setProducts(sortByPrice)
     }
 
     const sortByPriceDecrease = () => {
-        const sortByPriceDecrease = [...products]
-        sortByPriceDecrease.sort((a, b) => { return b.price - a.price })
-        setProducts(sortByPriceDecrease)
+        const sortByPrice = [...products]
+        setSortByDate("")
+        setSortByPrice(-1)
+        setProducts(sortByPrice)
     }
 
     const sortByNew = () => {
-        const sortByNew = [...products]
-        sortByNew.sort((a, b) => { return new Date(b.createdAt) - new Date(a.createdAt) })
-        setProducts(sortByNew)
+        const sortByDate = [...products]
+        setSortByPrice("")
+        setSortByDate(-1)
+        setProducts(sortByDate)
     }
 
     const sortByOld = () => {
-        const sortByOld = [...products]
-        sortByOld.sort((a, b) => { return new Date(a.createdAt) - new Date(b.createdAt) })
-        setProducts(sortByOld)
+        const sortByDate = [...products]
+        setSortByPrice("")
+        setSortByDate(1)
+        setProducts(sortByDate)
     }
 
 
@@ -73,36 +85,44 @@ function ProductsPage(props) {
             <Navbar />
             <Slide />
             <div className="products-page">
-                
+
                 <div className="products-page-items">
-                    <div className="products-page-header-title"><p style={{ textTransform: "capitalize" }}>{productsCategory === "accessories" ? "Phụ kiện " 
-                                                                                                            : productsCategory === "tablet" ? "Máy tính bảng " 
-                                                                                                            : productsCategory === "apple" ? "Điện thoại iphone"
-                                                                                                            : "Điện thoại " + productsCategory}</p></div>
-                    <div className="products-page-content">
+                    <div className="products-page-header-title"><p style={{ textTransform: "capitalize" }}>{productsCategory === "accessories" ? "Phụ kiện "
+                        : productsCategory === "tablet" ? "Máy tính bảng "
+                            : productsCategory === "apple" ? "Điện thoại iphone"
+                                : "Điện thoại " + productsCategory}</p></div>
+                    <div className=" d-flex flex-column">
+                        <div className="products-page-content">
                         {products.map((item) => {
                             return (
-                                <div className="products-page-item" key={item._id}>
-                                    <Card className="products-page-card">
-                                        <Card.Img className="products-page-image" variant="top" src={`${url}/uploads/${item.image}`} />
-                                        <Card.Body>
-                                            <p className="products-page-title">{item.name}</p>
-                                            <p className="products-page-description">
-                                                {getBodyContent(item.description).slice(0,50)+"..."}
-                                            </p>
-                                            <div className="products-page-card-footer">
-                                                <p className="products-page-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
-                                                <Link to={`/product/${item._id}`}>
+                                <Link to={`/product/${item._id}`} key={item._id}>
+                                    <div className="products-page-item" >
+                                        <Card className="products-page-card">
+                                            <Card.Img className="products-page-image" variant="top" src={`${url}/uploads/${item.image}`} />
+                                            <Card.Body>
+                                                <p className="products-page-title">{item.name}</p>
+                                                <p className="products-page-description">
+                                                    {getBodyContent(item.description).slice(0, 50) + "..."}
+                                                </p>
+                                                <div className="products-page-card-footer">
+                                                    <p className="products-page-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
+
                                                     <Button variant="danger">
                                                         Mua ngay
                                                     </Button>
-                                                </Link>
-                                            </div>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
+
+                                                </div>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                </Link>
                             )
                         })}
+                        </div>
+                        <div className="d-flex flex-column align-items-center my-2">
+                            <div>Page {page}</div>
+                            <Pagination page={page} pages={pages} changePage={setPage} />
+                        </div>
                     </div>
                 </div>
                 <div className="products-page-function">
@@ -121,7 +141,7 @@ function ProductsPage(props) {
 
                         <div className="products-page-sort-item">
                             <input type="radio" id="sortByNew" name="sort" value="sortByDateNew" onClick={sortByNew} />
-                            <label htmlFor="sortByDateNew">Sản phẩm mới nhập</label>
+                            <label htmlFor="sortByDateNew">Sản phẩm mới</label>
                         </div>
 
                         <div className="products-page-sort-item">

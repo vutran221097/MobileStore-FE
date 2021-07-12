@@ -11,9 +11,9 @@ function NewTablets() {
     const [tabletList, setTabletList] = useState([])
     const getTabletList = async () => {
         try {
-            const res = await axios.get(`${url}/products/category/tablet`);
+            const res = await axios.get(`${url}/products?category=tablet&sortByDate=-1`);
             if (res.status === 200) {
-                const tablets = res.data.slice(0, 4)
+                const tablets = res.data.products.slice(0, 4)
                 setTabletList(tablets);
             }
         } catch (error) {
@@ -33,6 +33,7 @@ function NewTablets() {
                 {tabletList.map((item) => {
                     return (
                         <div className="new-tablets-items" key={item._id}>
+                             <Link to={`/product/${item._id}`} style={{color:"black",textDecoration:"none"}}>
                             <Card className="new-tablets-card">
                                 <Card.Img className="new-tablets-image" variant="top" src={`${url}/uploads/${item.image}`} />
                                 <Card.Body>
@@ -42,14 +43,13 @@ function NewTablets() {
                                     </p>
                                     <div className="new-tablets-card-footer">
                                         <p className="new-tablets-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
-                                        <Link to={`/product/${item._id}`}>
                                             <Button variant="danger">
                                                 Mua ngay
-                                            </Button>
-                                        </Link>
+                                            </Button>          
                                     </div>
                                 </Card.Body>
                             </Card>
+                            </Link>
                         </div>
                     )
                 })}

@@ -41,13 +41,13 @@
 }
 
 .new-phones-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     height: 4rem;
 }
 
 .new-phones-description {
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: 4rem;
 }
 
@@ -85,3 +85,6 @@
     }
 }
 
+.new-phones-title:hover{
+    color:#6495ED
+}

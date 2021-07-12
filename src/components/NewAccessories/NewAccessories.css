@@ -41,13 +41,13 @@
 }
 
 .new-accessories-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     height: 4rem;
 }
 
 .new-accessories-description {
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: 4rem;
 }
 
@@ -75,6 +75,10 @@
 .new-accessories-card-footer{
     display:flex;
     justify-content: space-between;
+}
+
+.new-accessories-title:hover{
+    color:#6495ED
 }
 
 

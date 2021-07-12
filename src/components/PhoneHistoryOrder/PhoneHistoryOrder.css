@@ -1,0 +1,33 @@
+.order-history-page {
+    padding: 2rem 15rem;
+}
+
+.order-history-page-logout {
+    text-decoration: underline;
+    font-size: 1.5rem;
+    float: right;
+    color: black;
+}
+
+.order-history-page-logout:hover {
+    color: red;
+}
+
+.order-history-table {
+    width: 100%;
+}
+
+.order-history-information p{   
+    font-weight: bold;
+}
+
+.order-history-information p span{
+    font-weight: normal;
+}
+
+@media screen and (max-width: 1370px) {
+    .order-history-page {
+        padding-right: 3rem;
+        padding-left: 3rem;
+    }
+}

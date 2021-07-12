@@ -11,7 +11,9 @@ function AdminNavbar() {
     const [showProductBoard, setShowProductBoard] = useState(false);
     const [showUserBoard, setShowUserBoard] = useState(false);
     const [showNewsBoard, setShowNewsBoard] = useState(false);
-
+    const [showOrderBoard, setShowOrderBoard] = useState(false);
+    const [showChangePassword, setShowChangePassword] = useState(false);
+    const [showDashBoard, setShowDashBoard] = useState(false)
     const { user: currentUser } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
@@ -25,6 +27,9 @@ function AdminNavbar() {
         if (currentUser) {
             setShowProductBoard(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
             setShowNewsBoard(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
+            setShowOrderBoard(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
+            setShowDashBoard(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
+            setShowChangePassword(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
             setShowUserBoard(currentUser.roles.includes("ROLE_ADMIN"));
         }
     }, [currentUser]);
@@ -32,7 +37,8 @@ function AdminNavbar() {
     const logOut = () => {
         setShowProductBoard(false)
         setShowUserBoard(false)
-        // setShowNewsBoard(false)
+        setShowNewsBoard(false)
+        setShowOrderBoard(false)
         dispatch(logout());
     };
 
@@ -41,6 +47,15 @@ function AdminNavbar() {
 
             <div>
                 <img src={logo} alt="logo" style={{ height: "10rem", width: "10rem", margin: "2rem 0" }} />
+                {showDashBoard && (
+                    <div className="navbar-item">
+                        <Link to={"/admin/dashboard"} className="nav-link" style={{ color: "white" }}>
+                            Dash Board
+                        </Link>
+                    </div>
+                )}
+
+
                 {showUserBoard && (
                     <div className="navbar-item">
                         <Link to={"/admin/userboard"} className="nav-link" style={{ color: "white" }}>
@@ -64,6 +79,23 @@ function AdminNavbar() {
                         </Link>
                     </div>
                 )}
+
+                {showOrderBoard && (
+                    <div className="navbar-item">
+                        <Link to={"/admin/orderboard"} className="nav-link" style={{ color: "white" }}>
+                            Order Board
+                        </Link>
+                    </div>
+                )}
+
+                {showChangePassword && (
+                    <div className="navbar-item">
+                        <Link to={"/admin/changepassword"} className="nav-link" style={{ color: "white" }}>
+                            Change Password
+                        </Link>
+                    </div>
+                )}
+
             </div>
 
 

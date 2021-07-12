@@ -11,9 +11,9 @@ function NewPhones() {
     const [phoneList, setPhoneList] = useState([])
     const getPhoneList = async () => {
         try {
-            const res = await axios.get(`${url}/products/allPhone/`);
+            const res = await axios.get(`${url}/products`);
             if (res.status === 200) {
-                const phones = res.data
+                let phones = res.data.allProduct
                 let phone = phones.filter((item)=>{
                     return (item.category!=="accessories" & item.category !=="tablet")
                 }).slice(0,8)
@@ -36,6 +36,7 @@ function NewPhones() {
                 {phoneList.map((item) => {
                     return (
                         <div className="new-phones-items" key={item._id}>
+                            <Link to={`/product/${item._id}`} style={{color:"black",textDecoration:"none"}}>
                             <Card className="new-phones-card">
                                 <Card.Img className="new-phones-image" variant="top" src={`${url}/uploads/${item.image}`} />
                                 <Card.Body>
@@ -45,14 +46,15 @@ function NewPhones() {
                                     </p>
                                     <div className="new-phones-card-footer">
                                         <p className="new-phones-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
-                                        <Link to={`/product/${item._id}`}>
+                                        
                                             <Button variant="danger">
                                                 Mua ngay
                                             </Button>
-                                        </Link>
+                                  
                                     </div>
                                 </Card.Body>
                             </Card>
+                            </Link>
                         </div>
                     )
                 })}

@@ -121,8 +121,6 @@ a.navbar-link:hover {
     right: 34.5%;
 }
 
-
-
 @media screen and (max-width: 1370px) {
     .navbar-items {
         padding-right: 3rem;

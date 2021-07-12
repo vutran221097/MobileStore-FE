@@ -1,0 +1,14 @@
+.news-details-container{
+    padding: 2rem 15rem;
+}
+
+#news-details-body img{
+    width: 100%;
+}
+
+@media screen and (max-width: 1370px) {
+    .news-details-container {
+        padding-right: 3rem;
+        padding-left: 3rem;
+    }
+}

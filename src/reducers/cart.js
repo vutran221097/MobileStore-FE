@@ -24,10 +24,12 @@ export default function productCart(state = initProduct, action) {
                     id: action.payload._id,
                     quantity: 1,
                     name: action.payload.name,
+                    category: action.payload.category,
                     image: action.payload.image,
                     price: action.payload.price,
                     color: action.payload.color,
-                    guarantee : action.payload.guarantee
+                    guarantee : action.payload.guarantee,
+                    discount:0
                 };
                 state.Carts.push(cart);
             } else {
@@ -43,10 +45,12 @@ export default function productCart(state = initProduct, action) {
                         id: action.payload._id,
                         quantity: 1,
                         name: action.payload.name,
+                        category: action.payload.category,
                         image: action.payload.image,
                         price: action.payload.price,
                         color: action.payload.color,
-                        guarantee : action.payload.guarantee
+                        guarantee : action.payload.guarantee,
+                        discount:0
                     };
                     state.Carts.push(_cart);
                 }

@@ -22,7 +22,7 @@
     text-transform: capitalize;
 }
 
-.product-board-on-add-button{
+.product-board-on-add-button {
     display: flex;
     justify-content: flex-start;
     padding: 0 2rem;
@@ -101,12 +101,12 @@
 }
 
 .form-group-product label {
-        display: block;
-        margin-top: 10px;
+    display: block;
+    margin-top: 10px;
 }
 
 
-#product-board-category{
+#product-board-category {
     display: flex;
     flex-flow: row wrap;
     align-items: center
@@ -114,4 +114,35 @@
 
 .ql-editor {
     min-height: 8rem;
-  }
+}
+
+.filter-selected {
+    margin-bottom: 1em;
+    padding: .25em;
+    border: 0;
+    border-bottom: 2px solid currentcolor;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+.filter-selected:focus {
+    outline: 0;
+    border-bottom-color: #0056b3
+}
+
+.filter-selected:active {
+    outline: 0;
+    border-bottom-color: #0056b3
+}
+
+
+.product-board-filter {
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.my-modal-product {
+    width: 60vw;    /* Occupy the 90% of the screen width */
+    max-width: 60vw;
+}

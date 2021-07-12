@@ -15,10 +15,11 @@ import EditorToolbar, { modules, formats } from "../Editor/EditorToolbar";
 import "react-quill/dist/quill.snow.css";
 import getBodyContent from '../DemoContent/DemoBodyContent'
 import Pagination from "../Pagination/Pagination";
+import { ToastContainer, toast } from 'react-toastify';
+import { Modal, Button } from "react-bootstrap";
 
 const ProductBoard = ({ match }) => {
   const pageNumber = match.params.pageNumber || 1
-
   const [products, setProducts] = useState([])
   const [onAdd, setOnAdd] = useState(false)
   const [onEdit, setOnEdit] = useState(false)
@@ -35,12 +36,16 @@ const ProductBoard = ({ match }) => {
   const [page, setPage] = useState(pageNumber)
   const [pages, setPages] = useState(1)
   const [, setLoading] = useState(false)
+  const [category, setCategory] = useState("")
+  const [sortByPrice, setSortByPrice] = useState("")
+  const [sortByDate, setSortByDate] = useState(-1)
+
 
   useEffect(() => {
     const getProductData = async () => {
       try {
         setLoading(true)
-        const res = await axios.get(`${url}/products?page=${page}`);
+        const res = await axios.get(`${url}/products?category=${category}&page=${page}&sortByPrice=${sortByPrice}&sortByDate=${sortByDate}`);
         if (res.status === 200) {
           setProducts(res.data.products);
           setPages(res.data.pages)
@@ -53,7 +58,31 @@ const ProductBoard = ({ match }) => {
     }
     getProductData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page])
+  }, [page, category, sortByPrice, sortByDate])
+
+  const successMess = (str) => {
+    toast.success(str, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+
+  const errorMess = (str) => {
+    toast.error(str, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
 
   const onSubmitProduct = async (e) => {
     e.preventDefault();
@@ -76,18 +105,13 @@ const ProductBoard = ({ match }) => {
         url: `${url}/products`,
       })
       if (res.status === 200) {
-        setProducts([...products, res.data]);
-        setProductName("")
-        setProductImg(null)
-        setProductCategory("")
-        setProductDescription({ body: null })
-        setProductGuarantee("")
-        setProductColor([])
-        setProductPrice("")
-        setProductAvailable("")
+        setProducts([res.data, ...products]);
+        successMess("Thêm sản phẩm thành công!")
         setOnAdd(!onAdd)
       }
     } catch (err) {
+      errorMess('Thêm sản phẩm thất bại!')
+
       console.log(err)
     }
   }
@@ -113,10 +137,12 @@ const ProductBoard = ({ match }) => {
 
       if (res.status === 200) {
         setProducts(products.map(i => (i._id === id ? updateProduct : i)));
+        successMess("Sửa sản phẩm thành công!")
       }
     }
     catch (e) {
       console.log(e)
+      errorMess('Sửa sản phẩm thất bại!')
     }
 
   }
@@ -126,39 +152,41 @@ const ProductBoard = ({ match }) => {
       const res = await axios.delete(`${url}/products/${id}`, { headers: authHeader() })
       if (res.status === 200) {
         setProducts(products.filter(item => item._id !== id))
+        successMess("Xóa sản phẩm thành công!")
       }
     } catch (e) {
       console.log(e);
+      errorMess('Xóa sản phẩm thất bại!')
     }
   }
 
   const onAddProduct = () => {
     setProductName("")
-    setProductGuarantee("")
-    setProductPrice("")
-    setProductDescription("")
-    setClickedEdit(null)
-    setProductColor([])
+    setProductImg(null)
+    setProductCategory("")
     setProductDescription({ body: null })
+    setProductGuarantee("")
+    setProductColor([])
+    setProductPrice("")
+    setProductAvailable("")
+    setClickedEdit(null)
     setOnAdd(!onAdd)
   }
 
   const onEditProduct = (id) => {
     setProductColor([])
     setClickedEdit(id)
-    // eslint-disable-next-line
-    {
-      products.map(item => {
-        if (id === item._id) {
-          setProductName(item.name)
-          setProductGuarantee(item.guarantee)
-          setProductPrice(item.price)
-          setProductDescription(JSON.parse(item.description))
-        }
-        return null;
-      })
-    }
-    
+
+    products.map(item => {
+      if (id === item._id) {
+        setProductName(item.name)
+        setProductGuarantee(item.guarantee)
+        setProductPrice(item.price)
+        setProductDescription(JSON.parse(item.description))
+      }
+      return null;
+    })
+
     setOnEdit(!onEdit)
   }
 
@@ -196,13 +224,32 @@ const ProductBoard = ({ match }) => {
     setProductColor(options)
   }
 
-
   const onChangeProductPrice = (e) => {
     setProductPrice(e.target.value)
   }
 
   const onChangeProductAvailable = (e) => {
     setProductAvailable(e.target.value)
+  }
+
+  const onChangeCategory = (e) => {
+    const filterCategory = [...products]
+    setCategory(e.target.value)
+    setProducts(filterCategory)
+  }
+
+  const onChangeSortByPrice = (e) => {
+    const sortByPrice = [...products]
+    setSortByDate("")
+    setSortByPrice(parseInt(e.target.value))
+    setProducts(sortByPrice)
+  }
+
+  const onChangeSortByDate = (e) => {
+    const sortByDate = [...products]
+    setSortByPrice("")
+    setSortByDate(parseInt(e.target.value))
+    setProducts(sortByDate)
   }
 
   const checkAvailable = (item) => {
@@ -214,78 +261,128 @@ const ProductBoard = ({ match }) => {
 
   return (
     <div className="product-board">
+      <ToastContainer />
       <h2 className="product-board-header-title">PRODUCT BOARD</h2>
 
       <div className="product-board-on-add-button">
         <button className="btn btn-primary" onClick={() => { onAddProduct() }}>Add Product</button>
       </div>
+
+      <div className="product-board-filter">
+
+        <div className="filter-container px-2">
+          <select id="filter" className="filter-selected" value={category} onChange={onChangeCategory}>
+            <option hidden>Phân loại sản phẩm</option>
+            <option value="">Tất cả sản phẩm</option>
+            <option value="apple">Điện thoại Iphone</option>
+            <option value="samsung">Điện thoại Samsung</option>
+            <option value="oppo">Điện thoại Oppo</option>
+            <option value="lg">Điện thoại LG</option>
+            <option value="xiaomi">Điện thoại Xiaomi</option>
+            <option value="sony">Điện thoại Sony</option>
+            <option value="tablet">Máy tính bảng</option>
+            <option value="accessories">Phụ kiện</option>
+          </select>
+        </div>
+
+        <div className="filter-container px-2">
+          <select id="sortByPrice" className="filter-selected" value={sortByPrice} onChange={onChangeSortByPrice}>
+            <option hidden>Sắp xếp sản phẩm theo giá</option>
+            <option value="1">Giá tăng dần</option>
+            <option value="-1">Giá giảm dần</option>
+          </select>
+        </div>
+
+        <div className="filter-container">
+          <select id="sortByDate" className="filter-selected" value={sortByDate} onChange={onChangeSortByDate}>
+            <option hidden>Sắp xếp sản phẩm theo ngày</option>
+            <option value="1">Sản phẩm cũ</option>
+            <option value="-1">Sản phẩm mới</option>
+          </select>
+        </div>
+
+      </div>
+
       <div className="product-board-add-on-form">
-        {onAdd ? (<div>
-          <form onSubmit={onSubmitProduct} encType='multipart/form-data' className="border-bottom">
-            <div className="form-group-product">
-              <label htmlFor="name">Tên</label>
-              <input value={productName} onChange={onChangeProductName} className="form-control" type="text" placeholder="Name" required />
+        <Modal show={onAdd} onHide={() => setOnAdd(!onAdd)} dialogClassName="my-modal-product">
+          <Modal.Header closeButton>
+            <Modal.Title>Thêm sản phẩm</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <form onSubmit={onSubmitProduct} encType='multipart/form-data'>
+                <div className="form-group-product">
+                  <label htmlFor="name">Tên</label>
+                  <input value={productName} onChange={onChangeProductName} className="form-control" type="text" placeholder="Name" required />
 
-              <label htmlFor="image">Ảnh</label>
-              <input
-                type="file"
-                accept=".png, .jpg, .jpeg"
-                className="form-control"
-                name="image"
-                onChange={onChangeproductImg} required />
+                  <label htmlFor="image">Ảnh</label>
+                  <input
+                    type="file"
+                    accept=".png, .jpg, .jpeg"
+                    className="form-control"
+                    name="image"
+                    onChange={onChangeproductImg} required />
 
-              <label htmlFor="category">Nhóm</label>
-              <div id="product-board-category" value={productCategory} onChange={onChangeProductCategory}>
-                <input type="radio" name="category" className="product-board-category-add" value="apple" required />Iphone
-                <input type="radio" name="category" className="product-board-category-add ml-4" value="samsung" /> Samsung
-                <input type="radio" name="category" className="product-board-category-add ml-4" value="oppo" /> Oppo
-                <input type="radio" name="category" className="product-board-category-add ml-4" value="lg" /> LG
-                <input type="radio" name="category" className="product-board-category-add ml-4" value="xiaomi" /> Xiaomi
-                <input type="radio" name="category" className="product-board-category-add ml-4" value="sony" /> Sony
-                <input type="radio" name="category" className="product-board-category-add ml-4" value="tablet" /> Tablet
-                <input type="radio" name="category" className="product-board-category-add ml-4" value="accessories" /> Phụ kiện
-              </div>
+                  <label htmlFor="category">Nhóm</label>
+                  <div id="product-board-category" value={productCategory} onChange={onChangeProductCategory}>
+                    <input type="radio" name="category" className="product-board-category-add" value="apple" required />Iphone
+                    <input type="radio" name="category" className="product-board-category-add ml-4" value="samsung" /> Samsung
+                    <input type="radio" name="category" className="product-board-category-add ml-4" value="oppo" /> Oppo
+                    <input type="radio" name="category" className="product-board-category-add ml-4" value="lg" /> LG
+                    <input type="radio" name="category" className="product-board-category-add ml-4" value="xiaomi" /> Xiaomi
+                    <input type="radio" name="category" className="product-board-category-add ml-4" value="sony" /> Sony
+                    <input type="radio" name="category" className="product-board-category-add ml-4" value="tablet" /> Máy tính bảng
+                    <input type="radio" name="category" className="product-board-category-add ml-4" value="accessories" /> Phụ kiện
+                  </div>
 
-              <label htmlFor="description">Mô tả</label>
-              <div className="text-editor">
-                <EditorToolbar />
-                <ReactQuill
-                  theme="snow"
-                  value={productDescription.body}
-                  onChange={onChangeProductDescription}
-                  placeholder={"Write something awesome..."}
-                  modules={modules}
-                  formats={formats}
-                />
-              </div>
+                  <label htmlFor="description">Mô tả</label>
+                  <div className="text-editor">
+                    <EditorToolbar />
+                    <ReactQuill
+                      theme="snow"
+                      value={productDescription.body}
+                      onChange={onChangeProductDescription}
+                      placeholder={"Write something awesome..."}
+                      modules={modules}
+                      formats={formats}
+                    />
+                  </div>
 
-              <label htmlFor="guarantee">Số tháng bảo hành</label>
-              <input value={productGuarantee} onChange={onChangeProductGuarantee} className="form-control" type="number" placeholder="Guarantee" required />
+                  <label htmlFor="guarantee">Số tháng bảo hành</label>
+                  <input value={productGuarantee} onChange={onChangeProductGuarantee} className="form-control" type="number" placeholder="Guarantee" required />
 
-              <label htmlFor="color">Màu</label>
-              <div id="product-board-color-add">
-                <input type="checkbox" name="price" className="product-board-color-add" value="Đen" onChange={onChangeProductColor} />Đen
-                <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Trắng" onChange={onChangeProductColor} />Trắng
-                <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Xanh" onChange={onChangeProductColor} />Xanh
-                <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Đỏ" onChange={onChangeProductColor} />Đỏ
-                <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Bạc" onChange={onChangeProductColor} />Bạc
-              </div>
+                  <label htmlFor="color">Màu</label>
+                  <div id="product-board-color-add">
+                    <input type="checkbox" name="price" className="product-board-color-add" value="Đen" onChange={onChangeProductColor} />Đen
+                    <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Trắng" onChange={onChangeProductColor} />Trắng
+                    <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Xanh" onChange={onChangeProductColor} />Xanh
+                    <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Đỏ" onChange={onChangeProductColor} />Đỏ
+                    <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Bạc" onChange={onChangeProductColor} />Bạc
+                    <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Tím" onChange={onChangeProductColor} />Tím
+                    <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Vàng" onChange={onChangeProductColor} />Vàng
+                  </div>
 
-              <label htmlFor="price">Giá</label>
-              <input value={productPrice} onChange={onChangeProductPrice} className="form-control" type="number" placeholder="Price" required />
+                  <label htmlFor="price">Giá</label>
+                  <input value={productPrice} onChange={onChangeProductPrice} className="form-control" type="number" placeholder="Price" required />
 
-              <label htmlFor="available">Tình trạng</label>
-              <div id="available" value={productAvailable} onChange={onChangeProductAvailable}>
-                <input type="radio" name="status" className="product-board-status" value="available" required />Còn hàng
-                <input type="radio" name="status" className="product-board-status ml-5" value="unavailable" />Hết hàng
-              </div>
+                  <label htmlFor="available">Tình trạng</label>
+                  <div id="available" value={productAvailable} onChange={onChangeProductAvailable}>
+                    <input type="radio" name="status" className="product-board-status" value="available" required />Còn hàng
+                    <input type="radio" name="status" className="product-board-status ml-5" value="unavailable" />Hết hàng
+                  </div>
+                </div>
+                <div className="form-group-product d-flex justify-content-end">
+                  <Button className="mr-4" variant="secondary" onClick={() => setOnAdd(!onAdd)}>
+                    Đóng
+                  </Button>
+                  <Button variant="primary" type="submit">
+                    Thêm sản phẩm
+                  </Button>
+                </div>
+              </form>
             </div>
-            <div className="product-board-add-button">
-              <button className="btn btn-success" type="submit">Add</button>
-            </div>
-
-          </form>
-        </div>) : null}
+          </Modal.Body>
+        </Modal>
       </div>
 
       <div className="product-board-title">
@@ -302,96 +399,110 @@ const ProductBoard = ({ match }) => {
       </div>
       <hr style={{ marginTop: "-0.5rem" }} />
 
-      {products.map((item) => {
-        return (
-          <div key={item._id}>
-            <div className="product-board-body border-bottom" >
-              <p className="product-board-name">{item.name}</p>
-              <div className="product-board-image"><img src={`${url}/uploads/${item.image}`} alt={item._id} style={{ width: "4rem", height: "4.5rem" }} /></div>
-              <p className="product-board-category">{item.category}</p>
-              <p className="product-board-description">{getBodyContent(item.description).slice(0, 30) + "..."}</p>
-              <p className="product-board-guarantee">{item.guarantee}<sup>th</sup></p>
-              <p className="product-board-color">{item.color.toString()}</p>
-              <p className="product-board-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
-              <p className="product-board-available">{checkAvailable(item.available)}</p>
-              <div className="product-board-edit">
-                <button className="btn btn-success" onClick={() => onEditProduct(item._id)}><FontAwesomeIcon icon={faEdit} /></button>
+      {
+        products.map((item) => {
+          return (
+            <div key={item._id}>
+              <div className="product-board-body border-bottom" >
+                <p className="product-board-name">{item.name}</p>
+                <div className="product-board-image"><img src={`${url}/uploads/${item.image}`} alt={item._id} style={{ width: "4rem", height: "4.5rem" }} /></div>
+                <p className="product-board-category">{item.category}</p>
+                <p className="product-board-description">{getBodyContent(item.description).slice(0, 30) + "..."}</p>
+                <p className="product-board-guarantee">{item.guarantee}<sup>th</sup></p>
+                <p className="product-board-color">{item.color.toString()}</p>
+                <p className="product-board-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
+                <p className="product-board-available">{checkAvailable(item.available)}</p>
+                <div className="product-board-edit">
+                  <button className="btn btn-success" onClick={() => onEditProduct(item._id)}><FontAwesomeIcon icon={faEdit} /></button>
+                </div>
+                <div className="product-board-delete">
+                  <button className="btn btn-danger" onClick={() => { if (window.confirm("Bạn muốn xóa sản phẩm này chứ ?")) onDeleteProduct(item._id) }}>X</button>
+                </div>
               </div>
-              <div className="product-board-delete">
-                <button className="btn btn-danger" onClick={() => { if (window.confirm("Bạn muốn xóa sản phẩm này chứ ?")) onDeleteProduct(item._id) }}>X</button>
-              </div>
+
+              {clickedEdit === (item._id) ? (<Modal show={onEdit} onHide={() => setOnEdit(!onEdit)} dialogClassName="my-modal-product">
+                <Modal.Header closeButton>
+                  <Modal.Title>Sửa sản phẩm</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div>
+                    <form onSubmit={() => onSubmitEditProduct(item._id)} encType='multipart/form-data'>
+                      <div className="form-group-product">
+                        <label htmlFor="name">Tên</label>
+                        <input value={productName} onChange={onChangeProductName} className="form-control" type="text" placeholder="Name" required />
+
+                        <label htmlFor="image">Ảnh</label>
+                        <input
+                          type="file"
+                          accept=".png, .jpg, .jpeg"
+                          className="form-control"
+                          name="image"
+                          onChange={onChangeproductImg} required />
+
+                        <label htmlFor="category">Nhóm</label>
+                        <div id="product-board-category" value={productCategory} onChange={onChangeProductCategory}>
+                          <input type="radio" name="category" className="product-board-category-add" value="apple" required />Iphone
+                          <input type="radio" name="category" className="product-board-category-add ml-4" value="samsung" /> Samsung
+                          <input type="radio" name="category" className="product-board-category-add ml-4" value="oppo" /> Oppo
+                          <input type="radio" name="category" className="product-board-category-add ml-4" value="lg" /> LG
+                          <input type="radio" name="category" className="product-board-category-add ml-4" value="xiaomi" /> Xiaomi
+                          <input type="radio" name="category" className="product-board-category-add ml-4" value="sony" /> Sony
+                          <input type="radio" name="category" className="product-board-category-add ml-4" value="tablet" /> Máy tính bảng
+                          <input type="radio" name="category" className="product-board-category-add ml-4" value="accessories" /> Phụ kiện
+                        </div>
+
+                        <label htmlFor="description">Mô tả</label>
+                        <div className="text-editor">
+                          <EditorToolbar />
+                          <ReactQuill
+                            theme="snow"
+                            value={productDescription.body}
+                            onChange={onChangeProductDescription}
+                            placeholder={"Write something awesome..."}
+                            modules={modules}
+                            formats={formats}
+                          />
+                        </div>
+
+                        <label htmlFor="guarantee">Số tháng bảo hành</label>
+                        <input value={productGuarantee} onChange={onChangeProductGuarantee} className="form-control" type="number" placeholder="Guarantee" required />
+
+                        <label htmlFor="color">Màu</label>
+                        <div id="product-board-color-add">
+                          <input type="checkbox" name="price" className="product-board-color-add" value="Đen" onChange={onChangeProductColor} />Đen
+                          <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Trắng" onChange={onChangeProductColor} />Trắng
+                          <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Xanh" onChange={onChangeProductColor} />Xanh
+                          <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Đỏ" onChange={onChangeProductColor} />Đỏ
+                          <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Bạc" onChange={onChangeProductColor} />Bạc
+                          <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Tím" onChange={onChangeProductColor} />Tím
+                          <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Vàng" onChange={onChangeProductColor} />Vàng
+                        </div>
+
+                        <label htmlFor="price">Giá</label>
+                        <input value={productPrice} onChange={onChangeProductPrice} className="form-control" type="number" placeholder="Price" required />
+
+                        <label htmlFor="available">Tình trạng</label>
+                        <div id="available" value={productAvailable} onChange={onChangeProductAvailable}>
+                          <input type="radio" name="status" className="product-board-status" value="available" required />Còn hàng
+                          <input type="radio" name="status" className="product-board-status ml-5" value="unavailable" />Hết hàng
+                        </div>
+                      </div>
+                      <div className="form-group-product d-flex justify-content-end">
+                        <Button className="mr-4" variant="secondary" onClick={() => setOnEdit(!onEdit)}>
+                          Đóng
+                        </Button>
+                        <Button variant="primary" type="submit">
+                          Sửa sản phẩm
+                        </Button>
+                      </div>
+                    </form>
+                  </div>
+                </Modal.Body>
+              </Modal>) : null}
             </div>
-            {onEdit && clickedEdit === (item._id) ? (
-              <div>
-                <form onSubmit={() => onSubmitEditProduct(item._id)} encType='multipart/form-data'>
-                  <div className="form-group-product ">
-                    <label htmlFor="name">Tên</label>
-                    <input value={productName} onChange={onChangeProductName} className="form-control" type="text" placeholder="Name" required />
-
-                    <label htmlFor="image">Ảnh</label>
-                    <input
-                      type="file"
-                      accept=".png, .jpg, .jpeg"
-                      className="form-control"
-                      name="image"
-                      onChange={onChangeproductImg} required />
-
-                    <label htmlFor="category">Nhóm</label>
-                    <div id="product-board-category" value={productCategory} onChange={onChangeProductCategory}>
-                      <input type="radio" name="category" className="product-board-category-add" value="apple" required />Iphone
-                      <input type="radio" name="category" className="product-board-category-add ml-4" value="samsung" /> Samsung
-                      <input type="radio" name="category" className="product-board-category-add ml-4" value="oppo" /> Oppo
-                      <input type="radio" name="category" className="product-board-category-add ml-4" value="lg" /> LG
-                      <input type="radio" name="category" className="product-board-category-add ml-4" value="xiaomi" /> Xiaomi
-                      <input type="radio" name="category" className="product-board-category-add ml-4" value="sony" /> Sony
-                      <input type="radio" name="category" className="product-board-category-add ml-4" value="tablet" /> Tablet
-                      <input type="radio" name="category" className="product-board-category-add ml-4" value="accessories" /> Phụ kiện
-                    </div>
-
-                    <label htmlFor="description">Mô tả</label>
-                    <div className="text-editor">
-                      <EditorToolbar />
-                      <ReactQuill
-                        theme="snow"
-                        value={productDescription.body}
-                        onChange={onChangeProductDescription}
-                        placeholder={"Write something awesome..."}
-                        modules={modules}
-                        formats={formats}
-                      />
-                    </div>
-
-                    <label htmlFor="guarantee">Số tháng bảo hành</label>
-                    <input maxlength="2" value={productGuarantee} onChange={onChangeProductGuarantee} className="form-control" type="number" placeholder="Guarantee" required />
-
-                    <label htmlFor="color">Màu</label>
-                    <div id="product-board-color-add">
-                      <input type="checkbox" name="price" className="product-board-color-add" value="Đen" onChange={onChangeProductColor} />Đen
-                      <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Trắng" onChange={onChangeProductColor} />Trắng
-                      <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Xanh" onChange={onChangeProductColor} />Xanh
-                      <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Đỏ" onChange={onChangeProductColor} />Đỏ
-                      <input type="checkbox" name="price" className="product-board-color-add ml-4" value="Bạc" onChange={onChangeProductColor} />Bạc
-                    </div>
-
-                    <label htmlFor="price">Giá</label>
-                    <input value={productPrice} onChange={onChangeProductPrice} className="form-control" type="number" placeholder="Price" required />
-
-                    <label htmlFor="available">Tình trạng</label>
-                    <div id="available" value={productAvailable} onChange={onChangeProductAvailable}>
-                      <input type="radio" name="status" className="product-board-status" value="available" required />Còn hàng
-                      <input type="radio" name="status" className="product-board-status ml-5" value="unavailable" />Hết hàng
-                    </div>
-                  </div>
-                  <div className="product-board-edit-button">
-                    <button className="btn btn-success" type="submit">Update</button>
-                  </div>
-
-                </form>
-              </div>) : null}
-
-          </div>
-        )
-      })}
+          )
+        })
+      }
       <div className="d-flex flex-column align-items-center">
         <div>Page {page}</div>
         <Pagination page={page} pages={pages} changePage={setPage} />

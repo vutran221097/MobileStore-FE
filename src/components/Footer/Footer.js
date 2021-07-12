@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './Footer.css'
+import image from '../../images/map-store.png'
+import { Link } from "react-router-dom"
 
 function formatDate(date) {
     if (!date) return "";
@@ -40,14 +42,13 @@ function Footer() {
                     <p>Email: mobilestore25@gmail.com</p>
                     <p>Website: mobilestore.net</p>
                 </div>
-                <div className='footer-fanpage pb-2'>
-                    <h5>FANPAGE</h5>
-
-                    <div className="fb-page"
-                        data-href="https://www.facebook.com/profile.php?id=100068839505063"
-                        data-width="380"
-                        data-hide-cover="false"
-                        data-show-facepile="false"></div>
+                <div className='footer-map pb-2'>
+                    <Link
+                        to="https://www.google.com/maps/place/168+L%C6%B0%C6%A1ng+Th%E1%BA%BF+Vinh,+P.+V%C4%83n+Qu%C3%A1n,+Thanh+Xu%C3%A2n,+H%C3%A0+N%E1%BB%99i/@20.990663,105.7943534,17z/data=!4m5!3m4!1s0x3135acb85df6ca07:0x3c9d94d9c0e991fd!8m2!3d20.990663!4d105.7965421"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        <img src={image} alt="map" />
+                    </Link>
                 </div>
             </div>
             <div className='footer-bottom'>

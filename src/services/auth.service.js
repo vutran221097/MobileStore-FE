@@ -2,14 +2,6 @@ import axios from "axios";
 import url from "../setup"
 const API_URL = `${url}/auth/`;
 
-// const register = (username, email, password) => {
-//   return axios.post(API_URL + "signup", {
-//     username,
-//     email,
-//     password,
-//   });
-// };
-
 const login = (username, password) => {
   return axios
     .post(API_URL + "signin", {
@@ -30,7 +22,6 @@ const logout = () => {
 };
 
 const authService = {
-  // register,
   login,
   logout,
 };

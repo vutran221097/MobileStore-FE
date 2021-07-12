@@ -34,6 +34,23 @@
     width: 25%;
 }
 
-.user-board-edit .user-board-delete {
+.user-board-edit  {
     width: 10%
+}
+
+.user-board-delete {
+    width: 10%;
+}
+
+.user-board-add-form{
+    padding: 0 2rem;
+}
+
+.user-board-on-add-button{
+    padding: 0 2rem;
+}
+
+.user-board-add-button button{
+    width: 100%;
+    margin: 1rem 0;
 }

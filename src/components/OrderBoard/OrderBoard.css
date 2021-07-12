@@ -1,0 +1,28 @@
+.orderboard-page{
+    padding: 0 2rem;
+}
+
+.order-board-table{
+    width: 100%;
+}
+
+.order-done .order-board-table{
+    filter: blur(4px);  
+}
+
+.filter-container input{
+    border:none;
+    outline: none;
+    background-color: white;
+    margin-bottom: 1em;
+    padding: .25em;
+    border: 0;
+    border-bottom: 2px solid currentcolor;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+
+.order-process .order-board-table{
+    filter:blur(0)
+}

@@ -11,9 +11,9 @@ function NewAccessories() {
     const [accessoryList, setAccessoryList] = useState([])
     const getAccessoryList = async () => {
         try {
-            const res = await axios.get(`${url}/products/category/accessories`);
+            const res = await axios.get(`${url}/products?category=accessories&sortByDate=-1`);
             if (res.status === 200) {
-                const accessories = res.data.slice(0,4)
+                const accessories = res.data.products.slice(0,4)
                 setAccessoryList(accessories);
             }
         } catch (error) {
@@ -33,6 +33,7 @@ function NewAccessories() {
                 {accessoryList.map((item) => {
                     return (
                         <div className="new-accessories-items" key={item._id}>
+                            <Link to={`/product/${item._id}`} style={{color:"black",textDecoration:"none"}}>
                             <Card className="new-accessories-card">
                                 <Card.Img className="new-accessories-image" variant="top" src={`${url}/uploads/${item.image}`} />
                                 <Card.Body>
@@ -42,14 +43,13 @@ function NewAccessories() {
                                     </p>
                                     <div className="new-accessories-card-footer">
                                         <p className="new-accessories-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
-                                        <Link to={`/product/${item._id}`}>
                                             <Button variant="danger">
                                                 Mua ngay
-                                            </Button>
-                                        </Link>
+                                            </Button>      
                                     </div>
                                 </Card.Body>
                             </Card>
+                            </Link>
                         </div>
                     )
                 })}

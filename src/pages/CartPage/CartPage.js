@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import './CartPage.css'
 import Header from '../../components/Header/Header.js'
 import Branding from '../../components/Branding/Branding.js';
@@ -15,38 +16,82 @@ import {
     faShoppingCart
 } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import getImageContent from "../../components/DemoContent/DemoImageContent";
+import { Link } from 'react-router-dom'
+import bank from '../../images/Logo_BIDV.png'
+import discountIcon from '../../images/discount.png'
 
 function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
     let ListCart = [];
     let TotalCart = 0;
+
     Object.keys(items.Carts).forEach(function (item) {
-        TotalCart += items.Carts[item].quantity * items.Carts[item].price;
-        ListCart.push(items.Carts[item]);
+        if (items.Carts[item].category !== "accessories") {
+            TotalCart += items.Carts[item].quantity * items.Carts[item].price;
+        } else {
+            TotalCart += items.Carts[item].quantity * items.Carts[item].discount;
+        }
+        ListCart.push(items.Carts[item])
     });
+
+
     function TotalPrice(price, totalPrice) {
         return Number(price * totalPrice).toLocaleString('de-DE');
     }
 
-
-    useEffect(() => {
-        setCustomerCart(ListCart)
-        setCustomerTotalPrice(TotalCart)
-        // eslint-disable-next-line
-    }, [])
 
     const meta = { title: "Giỏ hàng" }
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     const [customerName, setCustomerName] = useState("")
     const [customerPhone, setCustomerPhone] = useState("")
     const [customerAddress, setCustomerAddress] = useState("")
-    const [customerCart, setCustomerCart] = useState([])
+    const [customerCart, setCustomerCart] = useState(ListCart)
     const [customerPaymentMethod, setCustomerPaymentMethod] = useState("")
     const [customerTotalPrice, setCustomerTotalPrice] = useState([])
+    const [products, setProducts] = useState([])
+
+    useEffect(() => {
+        const getProductData = async () => {
+            try {
+                const res = await axios.get(`${url}/products`);
+                if (res.status === 200) {
+                    setProducts(res.data.products.slice(0, 4));
+                }
+            }
+            catch (error) {
+                console.log(error);
+            };
+        }
+        getProductData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        setCustomerTotalPrice(TotalCart)
+        let product = customerCart.map(function (e) { return e.category; })
+
+        if (product.indexOf("apple") === -1 && product.indexOf("samsung") === -1 && product.indexOf("lg") === -1 && product.indexOf("xiaomi") === -1 && product.indexOf("sony") === -1 && product.indexOf("oppo") === -1 && product.indexOf("tablet") === -1) {
+            customerCart.map((item) => {
+                if (item.category === "accessories") {
+                    item.discount = item.price
+                }
+                return null
+            })
+        } else {
+            customerCart.map((item) => {
+                if (item.category === "accessories") {
+                    item.discount = item.price * (95 / 100)
+                } else {
+                    item.discount = item.price
+                }
+                return null
+            })
+        }
+    }, [customerCart, TotalCart])
 
     const onChangeCustomerName = (e) => {
         setCustomerName(e.target.value)
@@ -64,6 +109,34 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
         setCustomerPaymentMethod(e.target.value)
     }
 
+    const errorMess = (str) => {
+        toast.error(str, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    const successMess = (str) => {
+        toast.success(str, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    const deleteItemCart = (id) => {
+        setCustomerCart(customerCart.filter(item => item.id !== id))
+    }
+
 
     const submitPayment = async (e) => {
         e.preventDefault();
@@ -76,20 +149,12 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                     address: customerAddress,
                     payMethod: customerPaymentMethod,
                     totalPrice: customerTotalPrice,
-                    status: "process",
+                    status: 1,
                     cart: customerCart,
                 })
 
                 if (res.status === 200) {
-                    toast.success('Cảm ơn bạn đã mua sản phẩm tại cửa hàng chúng tôi!', {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    successMess('Cảm ơn bạn đã mua sản phẩm tại cửa hàng chúng tôi!')
                     setShow(false)
                     setTimeout(() => {
                         window.location.href = "/"
@@ -98,30 +163,12 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
             }
             catch (e) {
                 console.log(e)
-                toast.error('Thanh toán thất bại!', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                });
+                errorMess('Thanh toán thất bại!')
             }
         } else {
-            toast.error('Không có sản phẩm nào trong giỏ hàng!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
+            errorMess('Không có sản phẩm nào trong giỏ hàng!')
         }
-
     }
-
 
     return (
         <div className="cart-page">
@@ -131,11 +178,7 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
             <Navbar />
             <Slide />
             <div className="cart-page-container mt-4">
-                <div className="cart-page-side">
-                    news
-                </div>
                 <div className="cart-page-content">
-
                     <h2 className="text-center">GIỎ HÀNG</h2>
                     <table className="table">
                         <thead>
@@ -152,21 +195,21 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                         </thead>
                         <tbody>
                             {ListCart.length > 0 ? (
-                                ListCart.map((item, key) => {
+                                customerCart.map((item, key) => {
                                     return (
                                         <tr className="cart-table" key={key}>
-                                            <td><Button className="btn btn-danger" onClick={() => DeleteCart(key)}>X</Button></td>
-                                            <td>{item.name}</td>
-                                            <td><img src={`${url}/uploads/${item.image}`} alt={item.id} style={{ width: '100px', height: '80px' }} /></td>
-                                            <td style={{ textTransform: "capitalize" }}>{item.color}</td>
-                                            <td>{item.guarantee} <sup>th</sup></td>
-                                            <td>{item.price.toLocaleString("de-DE")} <sup>đ</sup></td>
-                                            <td>
+                                            <td style={{width:"5%"}}><Button className="btn btn-danger" onClick={() => { DeleteCart(key); deleteItemCart(item.id) }}>X</Button></td>
+                                            <td style={{width:"20%"}}><Link style={{ cursor: "pointer", color: "black", textDecoration: "none" }} to={`/product/${item.id}`} target="_blank" rel="noopener noreferrer"> {item.name}</Link></td>
+                                            <td style={{width:"10%"}}><Link style={{ cursor: "pointer", color: "black", textDecoration: "none" }} to={`/product/${item.id}`} target="_blank" rel="noopener noreferrer"><img src={`${url}/uploads/${item.image}`} alt={item.id} style={{ width: '100px', height: '80px' }} /></Link></td>
+                                            <td style={{width:"10%",textTransform: "capitalize" }}>{item.color}</td>
+                                            <td style={{width:"10%"}}>{item.guarantee} <sup>th</sup></td>
+                                            {item.category === "accessories" ? (item.discount !== item.price ? (<td style={{width:"15%"}}> <p style={{ textDecoration: "line-through" }}>{item.price.toLocaleString("de-DE")}đ</p> <p> {item.discount.toLocaleString("de-DE")} <sup>đ</sup> <img style={{ width: "2rem", height: "2rem" }} src={discountIcon} alt="discount 5%" /></p>  </td>) : (<td style={{width:"15%"}}> <p>{item.price.toLocaleString("de-DE")}đ</p></td>)) : (<td>{item.discount.toLocaleString("de-DE")} <sup>đ</sup> </td>)}
+                                            <td style={{width:"15%"}}>
                                                 <span className="btn btn-danger" style={{ margin: '2px' }} onClick={() => DecreaseQuantity(key)}>-</span>
                                                 <span className="btn ">{item.quantity}</span>
                                                 <span className="btn btn-success" style={{ margin: '2px' }} onClick={() => IncreaseQuantity(key)}>+</span>
                                             </td>
-                                            <td>{TotalPrice(item.price, item.quantity)} <sup>đ</sup></td>
+                                            <td style={{width:"15%"}}>{TotalPrice(item.discount, item.quantity)} <sup>đ</sup></td>
                                         </tr>
                                     )
                                 })
@@ -195,37 +238,59 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                             <Modal.Title>Thanh toán đơn hàng</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <form >
+                            <form onSubmit={submitPayment}>
                                 <div className="form-group-payment">
                                     <label htmlFor="name">Họ và Tên</label>
-                                    <input value={customerName} onChange={onChangeCustomerName} className="form-control" type="text" placeholder="Họ và tên" required />
+                                    <input pattern="[A-Za-z\s]{2,}$" title="Tên khách hàng chỉ được chứa chữ và khoảng trống" value={customerName} onChange={onChangeCustomerName} className="form-control" type="text" placeholder="Họ và tên" required />
 
                                     <label htmlFor="phone">Số điện thoại</label>
-                                    <input value={customerPhone} onChange={onChangeCustomerPhone} className="form-control" type="tel" placeholder="Số điện thoại" required />
+                                    <input pattern="[\d]{9,11}$" title="Số điện thoại từ 9 -11 số" minLength="9" maxLength="11" value={customerPhone} onChange={onChangeCustomerPhone} className="form-control" type="tel" placeholder="Số điện thoại" required />
 
-                                    <label htmlFor="address">Địa chỉ</label>
+                                    <label htmlFor="address">Địa chỉ giao hàng</label>
                                     <input value={customerAddress} onChange={onChangeCustomerAddress} className="form-control" type="text" placeholder="Địa chỉ" required />
 
                                     <label htmlFor="payment">Phương thức thanh toán</label>
                                     <div id="cart-payment" value={customerPaymentMethod} onChange={onChangeCustomerPaymentMethod}>
                                         <input type="radio" name="status" className="payment-method" value="bank" required /> Chuyển khoản
-                                        <input type="radio" name="status" className="payment-method ml-5" value="cod" /> Trực tiếp
+                                        <input type="radio" name="status" className="payment-method ml-5" value="cod" /> Trực tiếp (COD)
                                     </div>
+
+                                    <div className="d-flex justify-content-between mt-2">
+                                        <p>Chủ tài khoản: Trần Xuân Vũ </p>
+                                        <p>Số tài khoản: 1240000642529</p>
+                                    </div>
+                                    <img src={bank} alt="bank" style={{ width: "100%" }} />
+
+                                    <Button className="my-2" style={{ width: "100%" }} variant="primary" type="submit">
+                                        Thanh toán
+                                    </Button>
 
                                 </div>
 
                             </form>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Đóng
-                            </Button>
-                            <Button variant="primary" onClick={submitPayment}>
-                                Thanh toán
-                            </Button>
-                        </Modal.Footer>
                     </Modal>
 
+                </div>
+                <div className="cart-page-side ml-4     ">
+                    <div className="same-products">
+                        <div className="same-products-header-title"><p>Sản phẩm mới</p></div>
+                        <div className="same-product-items">
+                            {products.map((item) => {
+                                let imageBody = JSON.parse(item.description)
+                                let [contentImage] = getImageContent(imageBody.body);
+                                let image = [...contentImage].splice(0, 1).map((item) => item.src)
+                                return (
+                                    <Link to={`/product/${item._id}`} key={item._id} >
+                                        <div className="same-products-item" >
+                                            <img src={image[0]} alt={item._id} style={{ width: "100%" }} />
+                                            <p>{item.name}</p>
+                                        </div>
+                                    </Link>
+                                )
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
 

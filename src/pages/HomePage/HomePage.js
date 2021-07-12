@@ -9,6 +9,7 @@ import NewAccessories from '../../components/NewAccessories/NewAccessories.js';
 import RecentlyNews from '../../components/RecentlyNews/RecentlyNews.js';
 import Footer from '../../components/Footer/Footer.js';
 import DocumentMeta from 'react-document-meta';
+import SearchBar from '../../components/SearchBar/SearchBar.js';
 
 function HomePage() {
   const meta = {
@@ -21,6 +22,7 @@ function HomePage() {
       <Branding />
       <Navbar />
       <Slide />
+      <SearchBar />
       <NewPhones />
       <NewTablets />
       <NewAccessories />

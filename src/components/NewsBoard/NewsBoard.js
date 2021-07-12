@@ -13,6 +13,8 @@ import "react-quill/dist/quill.snow.css";
 import EditorToolbar, { modules, formats } from "../Editor/EditorToolbar";
 import getBodyContent from '../DemoContent/DemoBodyContent'
 import Pagination from "../Pagination/Pagination";
+import { ToastContainer, toast } from 'react-toastify';
+import { Modal, Button } from "react-bootstrap";
 
 function NewsBoard({ match }) {
     const pageNumber = match.params.pageNumber || 1
@@ -47,6 +49,30 @@ function NewsBoard({ match }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
+    const successMess = (str) => {
+        toast.success(str, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
+    const errorMess = (str) => {
+        toast.error(str, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+    }
+
 
     const onSubmitNews = async (e) => {
         e.preventDefault();
@@ -58,13 +84,15 @@ function NewsBoard({ match }) {
                 }
                 , { headers: authHeader() })
             if (res.status === 200) {
-                setNews([...news, res.data])
+                setNews([res.data, ...news])
+                successMess("Thêm tin tức thành công!")
                 setNewsTitle("")
                 setNewsBody({ body: null })
                 setOnAdd(!onAdd)
             }
         } catch (err) {
             console.log(err)
+            errorMess("Thêm tin tức thất bại!")
         }
     }
 
@@ -79,12 +107,13 @@ function NewsBoard({ match }) {
 
             if (res.status === 200) {
                 setNews(news.map(i => (i._id === id ? updateNews : i)));
+                successMess("Sửa tin tức thành công!")
             }
         }
         catch (e) {
             console.log(e)
+            errorMess("Sửa tin tức thất bại!")
         }
-
     }
 
     const onDeleteNews = async (id) => {
@@ -92,9 +121,11 @@ function NewsBoard({ match }) {
             const res = await axios.delete(`${url}/news/${id}`, { headers: authHeader() })
             if (res.status === 200) {
                 setNews(news.filter(item => item._id !== id))
+                successMess("Xóa tin tức thành công!")
             }
         } catch (e) {
             console.log(e);
+            errorMess("Xóa tin tức thất bại!")
         }
     }
 
@@ -105,19 +136,17 @@ function NewsBoard({ match }) {
         setOnAdd(!onAdd)
     }
 
-
     const onEditNews = (id) => {
         setClickedEdit(id)
-        // eslint-disable-next-line
-        {
-            news.map(item => {
-                if (id === item._id) {
-                    setNewsTitle(item.title)
-                    setNewsBody(JSON.parse(item.body))
-                }
-                return null;
-            })
-        }
+
+        news.map(item => {
+            if (id === item._id) {
+                setNewsTitle(item.title)
+                setNewsBody(JSON.parse(item.body))
+            }
+            return null;
+        })
+
         setOnEdit(!onEdit)
     }
 
@@ -142,6 +171,7 @@ function NewsBoard({ match }) {
 
     return (
         <div className="news-board">
+            <ToastContainer />
             <h2 className="news-board-header-title">NEWS BOARD</h2>
 
             <div className="news-board-on-add-button">
@@ -149,35 +179,42 @@ function NewsBoard({ match }) {
             </div>
 
             <div className="news-board-add-form">
-                {onAdd ? (
-                    <>
-                        <form onSubmit={onSubmitNews} encType='multipart/form-data' className="border-bottom">
-                            <div className="form-group-news">
+                <Modal show={onAdd} onHide={() => setOnAdd(!onAdd)} dialogClassName="my-modal-product">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Thêm sản phẩm</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div>
+                            <form onSubmit={onSubmitNews} encType='multipart/form-data'>
+                                <div className="form-group-news">
+                                    <label htmlFor="title">Tiêu đề</label>
+                                    <input value={newsTitle} onChange={onChangeNewsTitle} className="form-control" type="text" placeholder="Title" required />
 
-                                <label htmlFor="title">Tiêu đề</label>
-                                <input value={newsTitle} onChange={onChangeNewsTitle} className="form-control" type="text" placeholder="Title" required />
-
-                                <label htmlFor="body">Nội dung</label>
-                                <div className="text-editor">
-                                    <EditorToolbar />
-                                    <ReactQuill
-                                        theme="snow"
-                                        value={newsBody.body}
-                                        onChange={onChangeNewsBody}
-                                        placeholder={"Write something awesome..."}
-                                        modules={modules}
-                                        formats={formats}
-                                    />
+                                    <label htmlFor="body">Nội dung (<span style={{color:"red"}}>thêm ít nhất một ảnh vào nội dung*</span>)</label>
+                                    <div className="text-editor">
+                                        <EditorToolbar />
+                                        <ReactQuill
+                                            theme="snow"
+                                            value={newsBody.body}
+                                            onChange={onChangeNewsBody}
+                                            placeholder={"Write something awesome..."}
+                                            modules={modules}
+                                            formats={formats}
+                                        />
+                                    </div>
                                 </div>
-
-                            </div>
-
-                            <div className="news-board-add-button">
-                                <button className="btn btn-success" type="submit">Add</button>
-                            </div>
-                        </form>
-                    </>
-                ) : null}
+                                <div className="form-group-product d-flex justify-content-end my-3">
+                                    <Button className="mr-4" variant="secondary" onClick={() => setOnAdd(!onAdd)}>
+                                        Đóng
+                                    </Button>
+                                    <Button variant="primary" type="submit">
+                                        Thêm tin tức
+                                    </Button>
+                                </div>
+                            </form>
+                        </div>
+                    </Modal.Body>
+                </Modal>
             </div>
 
             <div className="news-board-title">
@@ -191,9 +228,9 @@ function NewsBoard({ match }) {
 
             {news.map((item) => {
                 return (
-                    <div key={item._id}>
+                    <div key={item._id} style={{ height: "5rem" }}>
                         <div className="news-board-body border-bottom" >
-                            <p className="news-board-content-title">{item.title.slice(0, 30) + "..."}</p>
+                            <p className="news-board-content-title">{item.title.slice(0, 40) + "..."}</p>
                             <p className="news-board-content-body">{getBodyContent(item.body).slice(0, 60) + "..."}</p>
                             <p className="news-board-content-date">{getDate(item.updatedAt)}</p>
                             <div className="news-board-edit">
@@ -204,34 +241,44 @@ function NewsBoard({ match }) {
                             </div>
                         </div>
 
-                        {onEdit && clickedEdit === (item._id) ? (
-                            <div>
-                                <form onSubmit={() => onSubmitEditNews(item._id)} encType='multipart/form-data'>
-                                    <div className="form-group-news">
+                        {clickedEdit === (item._id) ? (
+                            <Modal show={onEdit} onHide={() => setOnEdit(!onEdit)} dialogClassName="my-modal-product">
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Thêm sản phẩm</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <div>
+                                        <form onSubmit={()=>onSubmitEditNews(item._id)} encType='multipart/form-data'>
+                                            <div className="form-group-news">
+                                                <label htmlFor="title">Tiêu đề</label>
+                                                <input value={newsTitle} onChange={onChangeNewsTitle} className="form-control" type="text" placeholder="Title" required />
 
-                                        <label htmlFor="title">Tiêu đề</label>
-                                        <input value={newsTitle} onChange={onChangeNewsTitle} className="form-control" type="text" placeholder="Title" required />
-
-                                        <label htmlFor="body">Nội dung</label>
-                                        <div className="text-editor">
-                                            <EditorToolbar />
-                                            <ReactQuill
-                                                theme="snow"
-                                                value={newsBody.body}
-                                                onChange={onChangeNewsBody}
-                                                placeholder={"Write something awesome..."}
-                                                modules={modules}
-                                                formats={formats}
-                                            />
-                                        </div>
-
+                                                <label htmlFor="body">Nội dung (<span style={{color:"red"}}>thêm ít nhất một ảnh vào nội dung*</span>)</label>
+                                                <div className="text-editor">
+                                                    <EditorToolbar />
+                                                    <ReactQuill
+                                                        theme="snow"
+                                                        value={newsBody.body}
+                                                        onChange={onChangeNewsBody}
+                                                        placeholder={"Write something awesome..."}
+                                                        modules={modules}
+                                                        formats={formats}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="form-group-product d-flex justify-content-end my-3">
+                                                <Button className="mr-4" variant="secondary" onClick={() => setOnEdit(!onEdit)}>
+                                                    Đóng
+                                                </Button>
+                                                <Button variant="primary" type="submit">
+                                                    Sửa tin tức
+                                                </Button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div className="news-board-edit-button">
-                                        <button className="btn btn-success" type="submit">Update</button>
-                                    </div>
-
-                                </form>
-                            </div>) : null}
+                                </Modal.Body>
+                            </Modal>
+                        ) : null}
 
                     </div>
                 )

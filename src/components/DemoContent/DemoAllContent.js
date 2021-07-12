@@ -15,6 +15,5 @@ export default function getAllContent(content) {
             demoContent = demoContent + " " + current.textContent;
         }
     }
-    demoContent = demoContent.slice(0, 30) + "...";
     return [contentImage, demoContent]
 }
