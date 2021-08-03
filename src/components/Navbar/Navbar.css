@@ -129,6 +129,10 @@ a.navbar-link:hover {
 }
 
 @media screen and (max-width:990px) {
+    .number-of-cart {
+        right: 45.5%;
+    }
+
     .navbar-homepage nav {
         height: 3.6rem;
     }

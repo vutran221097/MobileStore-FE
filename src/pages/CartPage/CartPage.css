@@ -6,6 +6,7 @@
 
 .cart-page-side{
     width: 20%;
+    margin-left: 2rem;
 }
 
 .cart-page-content{
@@ -21,5 +22,27 @@
     .cart-page-container {
         padding-right: 3rem;
         padding-left: 3rem;
+    }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .cart-page-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cart-page-content{
+        width: 100%;
+    }
+    
+    .cart-page-side{
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .same-products-item p {
+        font-size: 2rem;
+        font-weight: bold;
     }
 }

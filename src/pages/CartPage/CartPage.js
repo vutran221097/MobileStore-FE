@@ -272,7 +272,7 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                     </Modal>
 
                 </div>
-                <div className="cart-page-side ml-4     ">
+                <div className="cart-page-side">
                     <div className="same-products">
                         <div className="same-products-header-title"><p>Sản phẩm mới</p></div>
                         <div className="same-product-items">
