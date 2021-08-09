@@ -190,7 +190,7 @@ function NewsBoard({ match }) {
                                     <label htmlFor="title">Tiêu đề</label>
                                     <input value={newsTitle} onChange={onChangeNewsTitle} className="form-control" type="text" placeholder="Title" required />
 
-                                    <label htmlFor="body">Nội dung (<span style={{color:"red"}}>thêm ít nhất một ảnh vào nội dung*</span>)</label>
+                                    <label htmlFor="body">Nội dung (<span style={{color:"red"}}>thêm ít nhất một đường dẫn ảnh vào nội dung*</span>)</label>
                                     <div className="text-editor">
                                         <EditorToolbar />
                                         <ReactQuill

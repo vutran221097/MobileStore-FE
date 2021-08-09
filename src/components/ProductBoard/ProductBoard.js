@@ -335,7 +335,7 @@ const ProductBoard = ({ match }) => {
                     <input type="radio" name="category" className="product-board-category-add ml-4" value="accessories" /> Phụ kiện
                   </div>
 
-                  <label htmlFor="description">Mô tả</label>
+                  <label htmlFor="description">Mô tả (<span style={{color:"red"}}>thêm ít nhất một đường dẫn ảnh vào nội dung*</span>)</label>
                   <div className="text-editor">
                     <EditorToolbar />
                     <ReactQuill

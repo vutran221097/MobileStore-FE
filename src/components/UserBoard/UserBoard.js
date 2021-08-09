@@ -21,8 +21,10 @@ const UserBoard = () => {
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
   const [userPassword, setUserPassword] = useState("")
-  const [userRoles, setUserRoles] = useState(["admin"])
+  const [userRoles, setUserRoles] = useState([])
   const admin = ["ROLE_ADMIN"]
+  const admin_role = ["admin", "moderator"]
+  const mod_role = ["moderator"]
 
   const successMess = (str) => {
     toast.success(str, {
@@ -62,8 +64,9 @@ const UserBoard = () => {
       }
     }
     getUserData();
+    console.log(userRoles)
     // eslint-disable-next-line
-  }, [])
+  }, [userRoles])
 
 
   const onDeleteUser = async (id) => {
@@ -87,8 +90,7 @@ const UserBoard = () => {
         username: userName,
         email: userEmail,
         password: userPassword,
-        roles: [userRoles]
-
+        roles: userRoles
       }, { headers: authHeader() })
 
       if (res.status === 200) {
@@ -110,7 +112,6 @@ const UserBoard = () => {
         username: userName,
         email: userEmail,
         password: userPassword,
-        myrole: userRoles
 
       }, { headers: authHeader() })
 
@@ -159,7 +160,12 @@ const UserBoard = () => {
     setUserEmail(e.target.value)
   }
   const onChangeUserRoles = (e) => {
-    setUserRoles(e.target.value)
+    if (e.target.value === "moderator") {
+      setUserRoles([e.target.value])
+    }
+    else {
+      setUserRoles(admin_role)
+    }
   }
 
 
@@ -192,7 +198,7 @@ const UserBoard = () => {
                   <label htmlFor="roles">Vai trò</label>
                   <div id="roles" value={userRoles} onChange={onChangeUserRoles}>
                     <input type="radio" name="roles" className="user-board-category-add ml-4" value="admin" required /> ROLE_ADMIN
-                    <input type="radio" name="roles" className="user-board-category-add ml-4" value="moderator" /> ROLE_MODERATOR
+                    <input type="radio" name="roles" className="user-board-category-add ml-4" value={mod_role} /> ROLE_MODERATOR
                   </div>
 
                 </div>
@@ -220,7 +226,7 @@ const UserBoard = () => {
                 <p className="user-board-name">{item.username}</p>
                 <p className="user-board-email">{item.email}</p>
                 <p className="user-board-password">⚫⚫⚫⚫⚫⚫⚫⚫</p>
-                <p className="user-board-roles">{"ROLE_" + item.myrole}</p>
+                <p className="user-board-roles">{item.roles.length === 1 ? "ROLE_MODERATOR" : "ROLE_ADMIN"}</p>
                 <div className="user-board-edit">
                   <button className="btn btn-success" onClick={() => onEditUser(item._id)} ><FontAwesomeIcon icon={faEdit} /></button>
                 </div>
@@ -244,16 +250,16 @@ const UserBoard = () => {
                         <label htmlFor="password">PassWord</label>
                         <input value={userPassword} onChange={onChangeUserPassword} className="form-control" type="password" placeholder="Password" required />
 
-                        <label htmlFor="roles">Vai trò</label>
+                        {/* <label htmlFor="roles">Vai trò</label>
                         <div id="roles" value={userRoles} onChange={onChangeUserRoles}>
                           <input type="radio" name="roles" className="user-board-category-add ml-4" value="admin" required /> ROLE_ADMIN
-                          <input type="radio" name="roles" className="user-board-category-add ml-4" value="moderator" /> ROLE_MODERATOR
-                        </div>
+                          <input type="radio" name="roles" className="user-board-category-add ml-4" value={mod_role}/> ROLE_MODERATOR
+                        </div> */}
 
                       </div>
 
                       <div className="user-board-add-button">
-                        <button className="btn btn-success" type="submit">Add</button>
+                        <button className="btn btn-success" type="submit">Update</button>
                       </div>
                     </form>
 
@@ -263,7 +269,7 @@ const UserBoard = () => {
             </div>
           )
         })}
-      </>) : (<h1 style={{textAlign:"center"}}>Bạn không có quyền truy cập vào trang này </h1>)}
+      </>) : (<h1 style={{ textAlign: "center" }}>Bạn không có quyền truy cập vào trang này </h1>)}
     </div>
   );
 };
