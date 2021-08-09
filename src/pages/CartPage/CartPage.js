@@ -252,14 +252,18 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                                     <label htmlFor="payment">Phương thức thanh toán</label>
                                     <div id="cart-payment" value={customerPaymentMethod} onChange={onChangeCustomerPaymentMethod}>
                                         <input type="radio" name="status" className="payment-method" value="bank" required /> Chuyển khoản
-                                        <input type="radio" name="status" className="payment-method ml-5" value="cod" /> Trực tiếp (COD)
+                                        <input type="radio" name="status" className="payment-method" value="cod" style={{marginLeft:"30%"}}/> Trực tiếp (COD)
                                     </div>
 
-                                    <div className="d-flex justify-content-between mt-2">
+                                    <div className="d-flex justify-content-between my-3" style={{fontWeight:"bold"}}>
+                                        <img src={bank} alt="bank" style={{ width: "50%" }} />
+                                        <div>
                                         <p>Chủ tài khoản: Trần Xuân Vũ </p>
                                         <p>Số tài khoản: 1240000642529</p>
+                                        <p>BIDV PGD Thanh Xuân Bắc</p>
+                                        </div>                                  
                                     </div>
-                                    <img src={bank} alt="bank" style={{ width: "100%" }} />
+                                    
 
                                     <Button className="my-2" style={{ width: "100%" }} variant="primary" type="submit">
                                         Thanh toán
