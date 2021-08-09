@@ -18,6 +18,10 @@
     justify-content: flex-end;
 }
 
+.modal-dialog {
+    max-width: 700px;
+}
+
 @media screen and (max-width: 1370px) {
     .cart-page-container {
         padding-right: 3rem;

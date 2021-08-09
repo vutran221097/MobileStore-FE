@@ -233,7 +233,7 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                         </Button>
                     </div>
 
-                    <Modal show={show} onHide={handleClose}>
+                    <Modal show={show} onHide={handleClose} style={{width:"100%"}}>
                         <Modal.Header closeButton>
                             <Modal.Title>Thanh toán đơn hàng</Modal.Title>
                         </Modal.Header>
@@ -252,7 +252,7 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                                     <label htmlFor="payment">Phương thức thanh toán</label>
                                     <div id="cart-payment" value={customerPaymentMethod} onChange={onChangeCustomerPaymentMethod}>
                                         <input type="radio" name="status" className="payment-method" value="bank" required /> Chuyển khoản
-                                        <input type="radio" name="status" className="payment-method" value="cod" style={{marginLeft:"30%"}}/> Trực tiếp (COD)
+                                        <input type="radio" name="status" className="payment-method" value="cod" style={{marginLeft:"50%"}}/> Trực tiếp (COD)
                                     </div>
 
                                     <div className="d-flex justify-content-between my-3" style={{fontWeight:"bold"}}>
@@ -261,6 +261,7 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                                         <p>Chủ tài khoản: Trần Xuân Vũ </p>
                                         <p>Số tài khoản: 1240000642529</p>
                                         <p>BIDV PGD Thanh Xuân Bắc</p>
+                                        <p>Mẫu: Tên_Số điện thoại mua hàng</p>
                                         </div>                                  
                                     </div>
                                     
