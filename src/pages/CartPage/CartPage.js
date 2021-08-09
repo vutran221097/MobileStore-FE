@@ -241,7 +241,7 @@ function CartPage({ items, IncreaseQuantity, DecreaseQuantity, DeleteCart }) {
                             <form onSubmit={submitPayment}>
                                 <div className="form-group-payment">
                                     <label htmlFor="name">Họ và Tên</label>
-                                    <input pattern="[A-Za-z]{2,}$" title="Tên khách hàng chỉ được chứa chữ" value={customerName} onChange={onChangeCustomerName} className="form-control" type="text" placeholder="Họ và tên" required />
+                                    <input value={customerName} onChange={onChangeCustomerName} className="form-control" type="text" placeholder="Họ và tên" required />
 
                                     <label htmlFor="phone">Số điện thoại</label>
                                     <input pattern="[\d]{9,11}$" title="Số điện thoại từ 9 -11 số" minLength="9" maxLength="11" value={customerPhone} onChange={onChangeCustomerPhone} className="form-control" type="tel" placeholder="Số điện thoại" required />
