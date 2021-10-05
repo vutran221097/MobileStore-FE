@@ -1,3 +1,3 @@
-const url = "http://localhost:8080";
+const url = "https://mobile-store-abc.herokuapp.com";
 
 export default url;

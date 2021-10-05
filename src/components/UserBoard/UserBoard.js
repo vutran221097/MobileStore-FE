@@ -22,7 +22,6 @@ const UserBoard = () => {
   const [userEmail, setUserEmail] = useState("")
   const [userPassword, setUserPassword] = useState("")
   const [userRoles, setUserRoles] = useState([])
-  const admin = ["ROLE_ADMIN"]
   const admin_role = ["admin", "moderator"]
   const mod_role = ["moderator"]
 
@@ -173,7 +172,7 @@ const UserBoard = () => {
   return (
     <div className="user-board">
       <ToastContainer />
-      {String(currentUser.roles) === String(admin) ? (<>
+      {currentUser ? (<>
         <h2 className="user-board-header-title">USER BOARD</h2>
 
         <div className="user-board-on-add-button">
