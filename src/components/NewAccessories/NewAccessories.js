@@ -9,12 +9,14 @@ import StringToHtml from "../DemoContent/DemoBodyContent"
 
 function NewAccessories() {
     const [accessoryList, setAccessoryList] = useState([])
+    const [loading, setLoading] = useState(true)
     const getAccessoryList = async () => {
         try {
             const res = await axios.get(`${url}/products?category=accessories&sortByDate=-1`);
             if (res.status === 200) {
-                const accessories = res.data.products.slice(0,4)
+                const accessories = res.data.products.slice(0, 4)
                 setAccessoryList(accessories);
+                setLoading(false)
             }
         } catch (error) {
             console.error(error);
@@ -29,33 +31,32 @@ function NewAccessories() {
     return (
         <div className='new-accessories'>
             <div className="new-accessories-header-title"><p>Phụ kiện mới</p></div>
-            <div className="new-accessories-content">
+            {loading === true ? (<h1 className="text-center">Loading . . . </h1>) : (<div className="new-accessories-content">
                 {accessoryList.map((item) => {
                     return (
                         <div className="new-accessories-items" key={item._id}>
-                            <Link to={`/product/${item._id}`} style={{color:"black",textDecoration:"none"}}>
-                            <Card className="new-accessories-card">
-                                <Card.Img className="new-accessories-image" variant="top" src={`${url}/uploads/${item.image}`} />
-                                <Card.Body>
-                                    <p className="new-accessories-title">{item.name}</p>
-                                    <p className="new-accessories-description">
-                                        {StringToHtml(item.description).slice(0,50)+"..."}
-                                    </p>
-                                    <div className="new-accessories-card-footer">
-                                        <p className="new-accessories-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
+                            <Link to={`/product/${item._id}`} style={{ color: "black", textDecoration: "none" }}>
+                                <Card className="new-accessories-card">
+                                    <Card.Img className="new-accessories-image" variant="top" src={`${url}/uploads/${item.image}`} />
+                                    <Card.Body>
+                                        <p className="new-accessories-title">{item.name}</p>
+                                        <p className="new-accessories-description">
+                                            {StringToHtml(item.description).slice(0, 50) + "..."}
+                                        </p>
+                                        <div className="new-accessories-card-footer">
+                                            <p className="new-accessories-price">{item.price.toLocaleString('de-DE')}<sup>đ</sup></p>
                                             <Button variant="danger">
                                                 Mua ngay
-                                            </Button>      
-                                    </div>
-                                </Card.Body>
-                            </Card>
+                                            </Button>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
                             </Link>
                         </div>
                     )
                 })}
+            </div>)}
 
-
-            </div>
         </div>
     )
 }

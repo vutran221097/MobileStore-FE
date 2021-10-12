@@ -7,17 +7,20 @@ import {Link} from 'react-router-dom'
 
 function RecentlyNews() {
     const [news, setNews] = useState([])
+    const [loading,setLoading] = useState(true)
     const getNews = async () => {
         try {
             const res = await axios.get(`${url}/news`);
             if (res.status === 200) {
                 setNews(res.data.allNews);
+                setLoading(false)
                 const newsest1 = res.data.allNews.slice(0, 1);
                 let [contentImage1] = getImageContent(newsest1[0].body);
                 let img = [...contentImage1][0].outerHTML.replace("\\&quot;", '').replace(`\\&quot;`, '')
                 let N = document.getElementById("newsest-image")
                 N.innerHTML = img
             }
+            
         } catch (error) {
             console.error(error);
         }
@@ -33,6 +36,7 @@ function RecentlyNews() {
     return (
         <div className="recently-news">
             <div className="recently-news-header-title"> <p>Tin tức mới</p></div>
+            {loading === true ? (<h1 className="text-center">Loading . . . </h1>) : (
             <div className="recently-news-content">
                 <div className="recently-news-newest">
                     {
@@ -41,16 +45,13 @@ function RecentlyNews() {
                                 <Link to={`/news/${item._id}`} key={item._id}>    
                                 <div className="newsest"  >
                                     <div id="newsest-image">
-
                                     </div>
                                     <h4 className="newsest-tittle">{item.title}</h4>
-
                                 </div>
                                 </Link>
                             )
                         })
                     }
-
                 </div>
                 <div className="recently-news-oldnews">
                     {news.slice(1, 4).map((item) => {
@@ -70,11 +71,9 @@ function RecentlyNews() {
                             </Link>
                         )
                     })}
-
-
-
                 </div>
-            </div>
+            </div>)}
+            
         </div>
     )
 }
