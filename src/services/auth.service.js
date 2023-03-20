@@ -4,13 +4,14 @@ const API_URL = `${url}/auth/`;
 
 const login = (username, password) => {
   return axios
-    .post(API_URL + "signin", {
+    .post(API_URL + "sign-in", {
       username,
       password,
     })
     .then((response) => {
       if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        sessionStorage.setItem("token", JSON.stringify(response.data.accessToken));
       }
 
       return response.data;

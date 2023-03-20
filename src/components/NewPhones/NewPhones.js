@@ -23,6 +23,8 @@ function NewPhones() {
             }
         } catch (error) {
             console.error(error);
+            setLoading(false)
+            setPhoneList([])
         }
     }
 
@@ -34,7 +36,8 @@ function NewPhones() {
     return (
         <div className='new-phones'>
             <div className="new-phones-header-title"><p>Điện thoại mới</p></div>
-            {loading === true ? (<h1 className="text-center">Loading . . . </h1>) : (<div className="new-phones-content">
+            {loading && <h1 className="text-center">Loading . . . </h1>}
+            {!phoneList.length && !loading ? (<h1 className="text-center">Không có sản phẩm.</h1>) : (<div className="new-phones-content">
                 {phoneList.map((item) => {
                     return (
                         <div className="new-phones-items" key={item._id}>

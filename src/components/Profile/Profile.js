@@ -26,11 +26,7 @@ const Profile = () => {
       <p>
         <strong>Email:</strong> {currentUser.email}
       </p>
-      <strong>Vai trò</strong>
-      <ul>
-        {currentUser.roles &&
-          currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-      </ul>
+      <strong>Vai trò:</strong> {currentUser.role}
     </div>
   );
 };

@@ -20,6 +20,8 @@ function NewAccessories() {
             }
         } catch (error) {
             console.error(error);
+            setLoading(false)
+            setAccessoryList([])
         }
     }
 
@@ -31,7 +33,8 @@ function NewAccessories() {
     return (
         <div className='new-accessories'>
             <div className="new-accessories-header-title"><p>Phụ kiện mới</p></div>
-            {loading === true ? (<h1 className="text-center">Loading . . . </h1>) : (<div className="new-accessories-content">
+            {loading && <h1 className="text-center">Loading . . . </h1>}
+            {!accessoryList.length && !loading ? (<h1 className="text-center">Không có sản phẩm.</h1>) : (<div className="new-accessories-content">
                 {accessoryList.map((item) => {
                     return (
                         <div className="new-accessories-items" key={item._id}>

@@ -23,6 +23,8 @@ function RecentlyNews() {
             
         } catch (error) {
             console.error(error);
+            setLoading(false)
+            setNews([])
         }
     }
 
@@ -36,7 +38,8 @@ function RecentlyNews() {
     return (
         <div className="recently-news">
             <div className="recently-news-header-title"> <p>Tin tức mới</p></div>
-            {loading === true ? (<h1 className="text-center">Loading . . . </h1>) : (
+            {loading && <h1 className="text-center">Loading . . . </h1>}
+            {!news.length && !loading ? (<h1 className="text-center">Không có tin tức mới. </h1>) : (
             <div className="recently-news-content">
                 <div className="recently-news-newest">
                     {

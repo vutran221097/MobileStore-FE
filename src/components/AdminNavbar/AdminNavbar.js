@@ -25,12 +25,12 @@ function AdminNavbar() {
 
     useEffect(() => {
         if (currentUser) {
-            setShowProductBoard(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
-            setShowNewsBoard(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
-            setShowOrderBoard(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
-            setShowDashBoard(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
-            setShowChangePassword(currentUser.roles.includes("ROLE_MODERATOR") || currentUser.roles.includes("ROLE_ADMIN"));
-            setShowUserBoard(currentUser.roles.includes("ROLE_ADMIN"));
+            setShowProductBoard(currentUser.role ==="moderator" || currentUser.role ==="admin");
+            setShowNewsBoard(currentUser.role ==="moderator" || currentUser.role ==="admin");
+            setShowOrderBoard(currentUser.role ==="moderator" || currentUser.role ==="admin");
+            setShowDashBoard(currentUser.role ==="moderator" || currentUser.role ==="admin");
+            setShowChangePassword(currentUser.role ==="moderator" || currentUser.role ==="admin");
+            setShowUserBoard(currentUser.role ==="admin");
         }
     }, [currentUser]);
 

@@ -21,9 +21,9 @@ const UserBoard = () => {
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
   const [userPassword, setUserPassword] = useState("")
-  const [userRoles, setUserRoles] = useState([])
-  const admin_role = ["admin", "moderator"]
-  const mod_role = ["moderator"]
+  const [userRoles, setUserRoles] = useState("")
+  const admin_role = "admin"
+  const mod_role = "moderator"
 
   const successMess = (str) => {
     toast.success(str, {
@@ -63,7 +63,6 @@ const UserBoard = () => {
       }
     }
     getUserData();
-    console.log(userRoles)
     // eslint-disable-next-line
   }, [userRoles])
 
@@ -160,7 +159,7 @@ const UserBoard = () => {
   }
   const onChangeUserRoles = (e) => {
     if (e.target.value === "moderator") {
-      setUserRoles([e.target.value])
+      setUserRoles(e.target.value)
     }
     else {
       setUserRoles(admin_role)
@@ -196,7 +195,7 @@ const UserBoard = () => {
 
                   <label htmlFor="roles">Vai trò</label>
                   <div id="roles" value={userRoles} onChange={onChangeUserRoles}>
-                    <input type="radio" name="roles" className="user-board-category-add ml-4" value="admin" required /> ROLE_ADMIN
+                    <input type="radio" name="roles" className="user-board-category-add ml-4" value={admin_role} required /> ROLE_ADMIN
                     <input type="radio" name="roles" className="user-board-category-add ml-4" value={mod_role} /> ROLE_MODERATOR
                   </div>
 
